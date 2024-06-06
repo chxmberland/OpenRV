@@ -13,6 +13,8 @@ HashTable table = HashTable(10); // initial expected size (can be approx)
 
 \: lookupValid (void; (Color,string)[] colors, HashTable table)
 {
+    print("fe lookupvalid 1\n");
+
     for_each (c; colors) 
     {
         let (color, value) = c,
@@ -40,7 +42,7 @@ let colors = (Color,string)[]
 //
 //  Add our colors and test to see if they are found properly
 //
-
+print("fe colorhash.h 1\n");
 for_each (c; colors) table.add(c._0, c._1);
 lookupValid(colors, table);
 

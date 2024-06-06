@@ -169,9 +169,11 @@ class: PointTree
         _indices.resize(points.size());
 
         for (int i=0; i < _indices.size(); i++) _indices[i] = i;
+        print("fe pointTree 1\n");
         for_each (p; points) _bbox.extend(p);
 
         // curry the comp function
+        print("fe pointTree 2\n");
         for_each (i; int[]{0,1,2}) _compFuncs[i] = comp(,,i,points);
 
         split(this, _root, Slice(_indices, 0, _indices.size()), _bbox, 0);

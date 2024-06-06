@@ -167,12 +167,14 @@ class: ModeManagerMode : MinorMode
 
     method: isPreload (bool; string name)
     {
+        print("fe mm 1\n");
         for_each (m; _preLoads) if (m == name) return true;
         return false;
     }
 
     method: isRejectLoad (bool; string name)
     {
+        print("fe mm 2\n");
         for_each (m; _rejectLoads) if (m == name) return true;
         return false;
     }
@@ -199,12 +201,14 @@ class: ModeManagerMode : MinorMode
 
     method: userUnloaded (bool; string name)
     {
+        print("fe mm 3\n");
         for_each (p; _doNotLoadPackages) if (toLower(name) == toLower(p)) return true;
         return false;
     }
 
     method: userOptLoaded (bool; string name)
     {
+        print("fe mm 4\n");
         for_each (p; _optionalPackages) if (toLower(name) == toLower(p)) return true;
         return false;
     }
@@ -223,18 +227,21 @@ class: ModeManagerMode : MinorMode
 
     method: findPackage (Package; string name)
     {
+        print("fe mm 5\n");
         for_each (p; _packages) if (p.file == name) return p;
         return nil;
     }
 
     method: findPackageByBase (Package; string name)
     {
+        print("fe mm 6\n");
         for_each (p; _packages) if (p.base == name) return p;
         return nil;
     }
 
     method: findModeEntry (ModeEntry; string name)
     {
+        print("fe mm 7\n");
         for_each (entry; _modes)
         {
             if (entry.name == name) return entry;
@@ -287,6 +294,7 @@ class: ModeManagerMode : MinorMode
         {
             State state = data();
 
+            print("fe mm 8\n");
             for_each (m; entry.requiresModes)
             {
                 let mentry = findModeEntry(m);
@@ -322,6 +330,7 @@ class: ModeManagerMode : MinorMode
 		if (_verbose)
 		{
 		    let foundIt = false;
+            print("fe mm 9\n");
 		    for_each (t; runtime.module_locations())
 		    {
 			if (t._0 == entry.name)
@@ -370,6 +379,7 @@ class: ModeManagerMode : MinorMode
     {
         event.reject();
 
+        print("fe mm 10\n");
         for_each (entry; _modes)
         {
             if (entry.loaded && (entry.mode neq nil))
@@ -488,6 +498,7 @@ class: ModeManagerMode : MinorMode
         //  Already loaded?
         //
 
+        print("fe mm 11\n");
         for_each (entry; _modes)
         {
             if (entry.name == name) return "already loaded from %s" % entry.pkg.name;
@@ -640,6 +651,7 @@ class: ModeManagerMode : MinorMode
             parts     = string.split(mudirs, path.concat_separator()),
             processed = string[]();
 
+        print("fe mm 12\n");
         for_each (dir; parts)
         {
             let skip = false,
@@ -666,6 +678,7 @@ class: ModeManagerMode : MinorMode
 
         Menu top;
 
+        print("fe mm 13\n");
         for_each (m; _modes)
         {
             if (m.menu neq nil) top.push_back(parseMenuEntry(m));
@@ -694,6 +707,7 @@ class: ModeManagerMode : MinorMode
         _toggleFuncRefs.clear();
         event.reject();
 
+        print("fe mm 15\n");
         for_each (m; _otherLoads)
         {
             showInfo("Forcing load of %s" % m);
@@ -713,6 +727,7 @@ class: ModeManagerMode : MinorMode
 
         if (_verbose)
         {
+            print("fe mm 16\n");
             for_each (p; _packages) showInfo("Using package %s" % p.name);
         }
     }

@@ -292,6 +292,7 @@ class: PresentationControlMinorMode : MinorMode
         //  Allow modes to render themselves on the presentation device with
         //  render method, if they've indicated they want to.
         //
+        print("fe pm 1\n");
         for_each (m; state.minorModes) if (m._active && m._drawOnPresentation) m.render(event);
         for_each (w; state.widgets) if (w._active && w._drawOnPresentation) w.render(event);
 
@@ -356,6 +357,7 @@ class: PresentationControlMinorMode : MinorMode
                            20,
                            Color(0,0,0,.75), Color(0,0,0,1));
 
+            print("fe pm 1\n");
             for_each (t; [_deviceText, _formatText, _dataFormatText, _audioFormatText])
             {
                 y -= t.height;

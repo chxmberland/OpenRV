@@ -53,6 +53,8 @@ module: key_to_string_map
             _table = Item[]();
             _table.resize(newSize);
 
+            print("fe resize kts 1\n");
+
             for_each (item; oldTable)
             {
                 for (Item i = item; i neq nil; i = i.next)
@@ -79,6 +81,7 @@ module: key_to_string_map
         {
             Item[] items;
 
+            print("fe allItems 1\n");
             for_each (item; _table)
             {
                 while (item neq nil)
@@ -94,6 +97,7 @@ module: key_to_string_map
         method: keys (KeyType[];)
         {
             KeyType[] array; 
+            print("fe keys kts 1\n");
             for_each (i; allItems()) array.push_back(i.name);
             array;
         }

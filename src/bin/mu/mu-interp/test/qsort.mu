@@ -1262,6 +1262,7 @@ vec[] moments =
  {0.0238785, 0.02231, 0.00159379}};
 
 string[] lots;
+print("fe qsort 1\n");
 for_each (m; moments) lots.push_back(string(mag(m)));
 print("sort first (~N log N)\n");
 sort(lots);

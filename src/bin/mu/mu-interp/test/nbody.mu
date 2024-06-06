@@ -45,7 +45,7 @@ class: Planet
             b2.vel += dp * b.mass * m;
         }
     }
-    
+    print("fe advance 1\n");
     for_each (b; bodies) b.pos += dt * b.vel;
 }
 
@@ -74,6 +74,7 @@ class: Planet
 \: offset_momentum (Planet[] bodies)
 {
     let p = Vec(0.0);
+    print("fe offset_momentum 1\n");
     for_each (b; bodies) p += b.vel * b.mass;
     bodies[0].vel = -p / SolarMass;
 }

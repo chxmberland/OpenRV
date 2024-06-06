@@ -26,7 +26,7 @@ if (stuff eq nil)
 else
 {
     int i = 0;
-    
+    print("fe trace 1\n");
     for_each (frame; stuff)
     {
         i++;

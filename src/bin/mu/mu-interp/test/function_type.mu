@@ -49,6 +49,7 @@ module: test
     \: fold (int; (int;int,int) f, [int] a, int i)
     {
         let ac = i;
+        print("fe module test 1\n");
         for_each (e; a) { ac = f(e, ac); }
         ac;
     }
@@ -60,7 +61,10 @@ module: test
     assert(fold(sub, list, 0) == 2);
 
     \: println (void; string s) { print(s + "\n"); }
-    \: map (void; (void;string) f, [string] a) { for_each (e; a) f(e); }
+    \: map (void; (void;string) f, [string] a) { 
+        print("fe module test 2\n");
+        for_each (e; a) f(e); 
+    }
 
     map(println, ["Hello", "World"]);
 
@@ -70,6 +74,7 @@ module: test
 
     let flist = [add, times, sub];
     [int] ac;
+    print("fe module test 3\n");
     for_each (f; flist) ac = fold(f, list, 0) : ac;
     fold(add, ac, 0);
 

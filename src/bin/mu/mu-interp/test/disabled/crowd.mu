@@ -545,6 +545,7 @@ global SpriteFiles sprite_files =
 {
     SpriteDB sprites = SpriteDB();
 
+    print("fe sprite 1\n");
     for_each (name; names)
     {
         let matches = regex.smatch("in_sprite_(.)([0-9]+)(.)(..)([0-9]+)(.)(.*)", 
@@ -838,6 +839,7 @@ global SpriteFiles sprite_files =
                 }
                 else
                 {
+                    print("fe sprite 2\n");
                     for_each (filter; named_filters)
                     {
                         if (filter._0 == name)
@@ -887,6 +889,7 @@ global SpriteFiles sprite_files =
     //
 
 
+    print("fe sprite 4\n");
     for_each (s; db)
     {
         for_each (filter; wfilters)
@@ -925,6 +928,7 @@ global SpriteFiles sprite_files =
         throw exception();
     }
 
+    print("fe sprite 3\n");
     for_each (s; ndb) s.weight /= accum;
 
     //sortSprites(ndb);
@@ -995,6 +999,7 @@ global SpriteFiles sprite_files =
 
     Sprite rval = nil;
 
+    print("fe sprite 4\n");
     for_each (s; db)
     {
         let w = s.weight;
@@ -1129,6 +1134,7 @@ global SelectionMethods methods = { ("random", chooseRandomSelection),
 
 \: smethod (SelectionFunc; string name)
 {
+    print("fe sprite 5\n");
     for_each (m; methods)
     {
         if (m._0 == name) return m._1;
@@ -1162,18 +1168,21 @@ global SelectionMethods methods = { ("random", chooseRandomSelection),
     print("\nPARAMETERS\n%s\n" % string(params));
 
     print("\nweight filters\n");
+    print("fe sprite 6\n");
     for_each (f; params.weightFilters)
     {
         print("%s\n" % string(f));
     }
     
     print("\naction filters\n");
+    print("fe sprite 7\n");
     for_each (f; params.actionFilters)
     {
         print("%s\n" % string(f));
     }
     
     print("\nfinal sprites\n");
+    print("fe sprite 8\n");
     for_each (s; params.sprites)
     {
         print("%s\n" % string(s));
@@ -1217,6 +1226,7 @@ global SelectionMethods methods = { ("random", chooseRandomSelection),
 
 \: chooseNBackend (void; Parameters params, int n)
 {
+    print("fe chooseNBackend 1\n");
     for_each (s; chooseNSprites(params, n)) 
     {
         print("%s\n" % string(s));

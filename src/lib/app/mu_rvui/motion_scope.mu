@@ -675,6 +675,7 @@ class: MotionScope : Widget
     method: doClearAllMarks (void; Event event)
     {
         let marks = markedFrames();
+        print("fe ms 1\n");
         for_each (m; marks) markFrame(m, false);
         redraw();
     }
@@ -686,6 +687,7 @@ class: MotionScope : Widget
         if (b eq nil) return a;
 
         Menu n;
+        print("fe ms 2\n");
         for_each (i; a) n.push_back(i);
         for_each (i; b) n.push_back(i);
         n;
@@ -1313,6 +1315,7 @@ class: MotionScope : Widget
             glLineWidth(1.0);
             glBegin(GL_LINES);
 
+            print("fe ms 3\n");
             for_each (mf; mfs)
             {
                 if (mf == f) frameIsMarked = true;
@@ -1331,6 +1334,7 @@ class: MotionScope : Widget
             glPointSize(3.2);
             glBegin(GL_POINTS);
 
+            print("fe ms 4\n");
             for_each (mf; mfs)
             {
                 let xframe = ((mf - fs)/ float(r)) * _tlw + hm0;
@@ -1465,6 +1469,7 @@ class: MotionScope : Widget
             //  Draw marked frames/frame numbers
             //
             int start = fs;
+            print("fe ms 5\n");
             for_each (mf; markedFrames())
             {
                 //  draw unmarked frames

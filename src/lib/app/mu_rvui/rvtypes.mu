@@ -219,6 +219,7 @@ class: Mode
     method: supportPath (string; string moduleName, string packageName)
     {
         use io;
+        print("fe rvt 1\n");
         for_each (m; runtime.module_locations())
         {
             if (m._0 == moduleName)
@@ -283,12 +284,14 @@ class: MinorMode : Mode
 
         defineMinorMode(name, sortKey, ordering);
 
+        print("fe rvt 2\n");
         for_each (b; globalBindings)
         {
             let (event, func, docs) = b;
             bind(_modeName, "global", event, func, docs);
         }
 
+        print("fe rvt 3\n");
         for_each (b; overrideBindings)
         {
             let (event, func, docs) = b;
@@ -322,6 +325,7 @@ class: MinorMode : Mode
                               string tableName,
                               BindingList bindings)
     {
+        print("fe rvt 4\n");
         for_each (b; bindings)
         {
             let (event, func, docs) = b;
@@ -333,6 +337,7 @@ class: MinorMode : Mode
                                    string tableName,
                                    BindingList bindings)
     {
+        print("fe rvt 5\n");
         for_each (b; bindings)
         {
             let (event, func, docs) = b;
@@ -727,6 +732,7 @@ class: State
     method: unregisterQuitMessage(void; string registrar)
     {
         (string,string)[] newQuitConfirmMessages = (string,string)[]();
+        print("fe rvt 6\n");
         for_each (qm;quitConfirmMessages)
         {
             if (qm._0 != registrar) newQuitConfirmMessages.push_back(qm);
@@ -800,6 +806,7 @@ class: State
 
     if (widget._buttons neq nil)
     {
+        print("fe rvt 7\n");
         for_each (b; widget._buttons)
         {
             if (b._callback neq nil && b.inside(bp.x, bp.y))

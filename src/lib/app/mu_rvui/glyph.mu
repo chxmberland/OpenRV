@@ -590,6 +590,7 @@ operator: & (Glyph; Glyph a, Glyph b)
         nbounds = float[4][](),
         vbounds = float[4][]();
 
+    print("fe glyph 2\n");
     for_each (a; pairs)
     {
         let (name, value) = a,
@@ -622,6 +623,7 @@ operator: & (Glyph; Glyph a, Glyph b)
         n;
     }
 
+    print("fe glyph 3\n");
     for_each (p; pairs)
     {
         let (name, value) = p;
@@ -633,6 +635,7 @@ operator: & (Glyph; Glyph a, Glyph b)
 
         if (lines.size() > 1)
         {
+            print("fe glyph 4\n");
             for_each (line; reverse(lines.rest()))
             {
                 if (line != "") newPairs.push_back(StringPair("", line));

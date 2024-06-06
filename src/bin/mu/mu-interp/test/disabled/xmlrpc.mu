@@ -36,6 +36,7 @@ function: outputValue (void; ostream o, Value v)
         { 
             print(o, "<struct>");
 
+            print("fe outputValue 1\n");
             for_each (p; s) 
             {
                 print(o, "<member><name>%s</name><value>" % p._0);
@@ -49,6 +50,7 @@ function: outputValue (void; ostream o, Value v)
         Array a ->
         {
             print(o, "<array><data>");
+            print("fe outputValue 2\n");
             for_each (e; a) outputValue(o, e);
             print(o, "</data></array>");
         }
@@ -66,6 +68,7 @@ function: outputParamList (void; ostream o, [Value] vlist)
 {
     print(o, "<params>");
 
+    print("fe outputParamList 1\n");
     for_each (v; vlist)
     {
         print(o, "<param>");

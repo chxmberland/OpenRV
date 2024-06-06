@@ -79,6 +79,7 @@ class: RGBASampler
     {
         _image = i;
 
+        print("fe RGBASampler 1\n");
         for_each (p; i._planes) 
             for_index (i; p._channelNames)
             {

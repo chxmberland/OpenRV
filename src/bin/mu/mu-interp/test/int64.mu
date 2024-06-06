@@ -3,7 +3,7 @@
 // 
 // SPDX-License-Identifier: Apache-2.0 
 //
-
+print("fe int64 1\n");
 for_each (m; runtime.machine_types()) 
 {
     if (m._0 == "int64")

@@ -52,6 +52,7 @@ module: export_utils
 
     \: getColorNode (string; string groupType)
     {
+        print("fe printColorNode 1\n");
         for_each (node; nodesOfType("RVDisplayColor"))
         {
             let pipeGroup = nodeGroup(node),
@@ -145,6 +146,8 @@ module: export_utils
 
     \: rvio (ExternalProcess; string name, string[] inargs, (void;) cleanup = nil)
     {
+        print("DEBUG: Entering function rvio\n");
+
         let cmd = system.getenv("RV_APP_RVIO");
         string[] args = {"-v", "-err-to-out" };
         [string] argList;
@@ -157,10 +160,13 @@ module: export_utils
             args.push_back(lic);
         }
 
+        print("fe rvio 1\n");
         for_each (a; inargs) args.push_back(a);
         for_index (i; args) argList = args[args.size()-i-1] : argList;
 
 	rvioSetup();
+
+        print("DEBUG: Entering function rvioSetup\n");
 
         ExternalQProcess(name,
                          cmd, argList, 1,
@@ -277,6 +283,7 @@ module: export_utils
     {
         if (prefix == "") prefix = sessionFileName().substr(0,-3);
 
+        print("fe exportMarkedRegionsAsMovies 1\n");
         for_each (inout; markedRegionBoundaries())
         {
             let (start, end, i) = inout;
@@ -294,6 +301,7 @@ module: export_utils
     {
         if (prefix == "") prefix = sessionFileName().substr(0,-3);
         
+        print("fe exportMarkedRegionsAsImages 1\n");
         for_each (inout; markedRegionBoundaries())
         {
             let (start, end, i) = inout,

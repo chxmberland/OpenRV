@@ -21,6 +21,7 @@ class: ExternalIOProcess : ExternalProcess
                              regex progressRE = ".*\(([0-9]+(\.[0-9]*)?)% done\).*",
                              regex messageRE  = "INFO:[ \t]+([^(]+)(\([0-9]+\.?[0-9]*% +done\))?")
     {
+        print("DEBUG: Entering class constructor ExternalIOProcess\n");
         print("INFO: ExternalIOProcess: %s %s %d\n" % (path, string(args), timeout_usecs));
 
         _proc       = io.process(path, args, timeout_usecs);

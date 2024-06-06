@@ -85,6 +85,7 @@ class: ExternalQProcess : ExternalProcess
                              regex progressRE = ".*\(([0-9]+(\.[0-9]*)?)% done\).*",
                              regex messageRE  = "INFO:[ \t]+([^(]+)(\([0-9]+\.?[0-9]*% +done\))?")
     {
+        print("DEBUG: Entering class connstructor ExternalQProcess\n");
         print("INFO: ExternalProcess: %s %s %d\n" % (path, string(args), timeout_usecs));
 
         init(name, path, t, cleanup_func, progressRE, messageRE);
@@ -102,9 +103,11 @@ class: ExternalQProcess : ExternalProcess
         }
 
         string[] newArgs;
+        print("fe ExternalQProcess 1\n");
         for_each (a; args) newArgs.push_back(a);
         _errors = "";
 
+        print("DEBUG: Starting external process\n");
         _proc.start(path, newArgs, QIODevice.ReadOnly | QIODevice.Text);
     }
 

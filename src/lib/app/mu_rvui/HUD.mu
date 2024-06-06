@@ -105,6 +105,7 @@ class: ImageInfo : Widget
         string iname = nil;
         if (pinfo neq nil)
         {
+            print("fe hud 1\n");
             for_each (info; pinfo)
             {
                 if (nodeType(nodeGroup(info.node)) == "RVSourceGroup")
@@ -146,6 +147,7 @@ class: ImageInfo : Widget
             {
                 let movies = getStringProperty(nodeName + ".media.movie");
 
+                print("fe hud 2\n");
                 for_each (m; movies)
                 {
                     let info = sourceMediaInfo (nodeName, m);
@@ -179,6 +181,7 @@ class: ImageInfo : Widget
 
             if (retimedFPS != 0.0 || hasAudioAttrs)
             {
+                print("fe hud 3\n");
                 for_each (a; attrs)
                 {
                     if (a._0 == "FPS" && retimedFPS != 0.0) a._1 = "%s (retimed to %g)" % (a._1, retimedFPS);
@@ -223,6 +226,7 @@ class: ImageInfo : Widget
                 attrs.push_back(("DisplayChannels", dchans));
 
                 RenderedSourceInfo rinfo = nil;
+                print("fe hud 4\n");
                 for_each (rsrc; sourcesRendered())
                 {
                     if (rsrc.name == iname) { rinfo = rsrc; break; }
@@ -397,6 +401,7 @@ class: InfoStrip : Widget
 
         if (_showFilename)
         {
+            print("fe hud 5\n");
             for_each (a; attrs)
             {
                 let (name, value) = a;
@@ -668,6 +673,7 @@ class: SourceDetails : Widget
 
         \: nodeTypeInGroupList (string; string[] nodes, string typeName)
         {
+            print("fe hud 6\n");
             for_each (n; nodes) if (nodeType(n) == typeName) return n;
             return nil;
         }
@@ -901,6 +907,7 @@ class: SourceDetails : Widget
 
         if (pinfo neq nil && !pinfo.empty())
         {
+            print("fe hud 7\n");
             for_each (ri; renderedImages())
             {
                 if (ri.name == pinfo.front().name)
@@ -1129,6 +1136,7 @@ class: SourceDetails : Widget
         if (sourceNode neq nil)
         {
             let movies = getStringProperty(sourceNode + ".media.movie");
+            print("fe hud 8\n");
             for_each (m; movies)
             {
                 string chunk = if m[0] == '/' then "/" else "";
@@ -1154,6 +1162,7 @@ class: SourceDetails : Widget
                 }
                 if (chunk != "") chunks.push_back(chunk);
                 bool newPath = true;
+                print("fe hud 9\n");
                 for_each (chunk; chunks)
                 {
                     string title = "";

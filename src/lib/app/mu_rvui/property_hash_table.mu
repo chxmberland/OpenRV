@@ -54,6 +54,7 @@ module: property_hash_table
             _table = Item[]();
             _table.resize(newSize);
 
+            print("fe pht 1\n");
             for_each (item; oldTable)
             {
                 for (Item i = item; i neq nil; i = i.next)
@@ -80,6 +81,7 @@ module: property_hash_table
         {
             Item[] items;
 
+            print("fe pht 2\n");
             for_each (item; _table)
             {
                 while (item neq nil)
@@ -95,6 +97,7 @@ module: property_hash_table
         method: keys (string[];)
         {
             string[] array; 
+            print("fe pht 3\n");
             for_each (i; allItems()) array.push_back(i.name);
             array;
         }
@@ -116,6 +119,7 @@ module: property_hash_table
     {
         let h = HashTable(8);
 
+        print("fe pht 3\n");
         for_each (prop; properties(nodeNameOrType))
         {
             let parts    = prop.split("."),

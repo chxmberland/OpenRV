@@ -19,25 +19,31 @@ float[4,4] M = {1, 0, 0, 0,
 
 float[][] farray = { {1,2,3}, {4,5,6}, {7,8,9}, {10,10,10} };
 
+print("fe for_each 1\n");
 for_each (i; iarray) print(i + string(" "));
 print("\n");
 
+print("fe for_each 2\n");
 int count = 1;
 for_each (i; iarray) assert(i == count++);
 assert(count == iarray.size() + 1);
 
+print("fe for_each 3\n");
 for_each (i; sarray) print(i + string(" "));
 print("\n");
 
+print("fe for_each 4\n");
 for_each (i; M) print(i + string(" "));
 print("\n");
 
 
+print("fe for_each 5\n");
 for_each (i; farray) 
 {
     print(i.back() + string(" "));
 }
 
+print("fe for_each 6\n");
 for_each (i; iarray)
 {
     if (i == 5) break;
@@ -48,6 +54,7 @@ bool foundSix = false;
 
 print("\n");
 print("iarray = %s\n" % iarray);
+print("fe for_each 7\n");
 for_each (i; iarray)
 {
     if (i == 5) { print(" i=5 "); continue; }

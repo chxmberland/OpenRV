@@ -58,6 +58,8 @@ module: color_hash_table
             _table = Item[]();
             _table.resize(newSize);
 
+            print("fe resize 1\n");
+
             for_each (item; oldTable)
             {
                 for (Item i = item; i neq nil; i = i.next)

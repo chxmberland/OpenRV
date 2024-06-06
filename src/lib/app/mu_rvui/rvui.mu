@@ -481,6 +481,7 @@ global Configuration globalConfig =
 {
     \: (void;)
     {
+        print("fe rvui 1\n");
         for_each (node; sourcesAtFrame(frame()))
         {
             string attrProp = "%s.attributes.ColorSpace/%s" % (node,attr);
@@ -528,6 +529,7 @@ global Configuration globalConfig =
    {
        PixelImageInfo info = state.pixelInfo.front();
 
+        print("fe rvui 2\n");
        for_each (ri; renderedImages())
        {
            if (ri.name == info.name)
@@ -588,7 +590,7 @@ global Configuration globalConfig =
     if (state.pixelInfo neq nil && !state.pixelInfo.empty())
     {
         PixelImageInfo info = state.pixelInfo.front();
-
+        print("fe rvui 3\n");
         for_each (ri; renderedImages())
         {
             if (ri.name == info.name)
@@ -709,6 +711,7 @@ global Configuration globalConfig =
 
 \: videoSourcesExistState (int;)
 {
+    print("fe rvui 4\n");
     for_each (s; sources())
     {
         if (s eq nil) continue;
@@ -1082,6 +1085,7 @@ global (string, Glyph)[] showChannelGlyphs =
         sendInternalEvent("live-review-blocked-event");
         return;
     }
+    print("fe rvui 5\n");
     for_each (p; (string, float)[] {
                   ("gamma",        DefaultGamma),
                   ("exposure",     DefaultExposure),
@@ -1321,6 +1325,7 @@ global let gammaMode      = startParameterMode("#RVColor.color.gamma", 4.0, Defa
 {
     string s;
 
+    print("fe rvui 6\n");
     for_each (ch; getStringProperty("#RVChannelMap.format.channels"))
     {
         if (s == "") s = ch;
@@ -1473,6 +1478,7 @@ global let gammaMode      = startParameterMode("#RVColor.color.gamma", 4.0, Defa
     setFloatProperty("@RVDisplayStereo.stereo.relativeOffset", float[]{0.0}, true);
     setFloatProperty("@RVDisplayStereo.stereo.rightOffset", float[]{0.0}, true);
 
+    print("fe rvui 7\n");
     for_each (s; nodesOfType("RVSourceStereo"))
     {
         setFloatProperty(s + ".stereo.relativeOffset", float[]{0.0}, true);
@@ -1485,6 +1491,7 @@ global let gammaMode      = startParameterMode("#RVColor.color.gamma", 4.0, Defa
 {
     setFloatProperty("#RVSoundTrack.audio.offset", float[]{0.0}, true);
 
+    print("fe rvui 8\n");
     for_each (s; nodesOfType("RVFileSource"))
     {
         setFloatProperty(s + ".group.audioOffset", float[]{0.0}, true);
@@ -1619,6 +1626,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
         let array = markedFrames(),
             fr    = frame();
 
+        print("fe rvui 9\n");
         for_each (f; array) if (f == fr) return CheckedMenuState;
         return UncheckedMenuState;
     }
@@ -2551,12 +2559,14 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
 \: markSequence (void;)
 {
     let smarks = sequenceBoundaries();
+    print("fe rvui 10\n");
     for_each (m; smarks) markFrame(m, true);
     redraw();
 }
 
 \: markAnnotatedFrames (void;)
 {
+    print("fe rvui 11\n");
     for_each (f; findAnnotatedFrames()) markFrame(f, true);
     redraw();
 }
@@ -2564,6 +2574,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
 \: clearAllMarks (void;)
 {
     let marks = markedFrames();
+    print("fe rvui 12\n");
     for_each (m; marks) markFrame(m, false);
     redraw();
 }
@@ -2574,6 +2585,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
         inp   = inPoint(),
         outp  = outPoint();
 
+    print("fe rvui 13\n");
     for_each (m; marks)
     {
         if (m >= inp && m <= outp) markFrame(m, false);
@@ -2818,6 +2830,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
         let marks = markedFrames();
         int[] allMarks = {};
         allMarks.push_back(frameStart());
+        print("fe rvui 14\n");
         for_each (mark; marks)
         {
             allMarks.push_back(mark);
@@ -2827,6 +2840,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
             newIn = inPoint(),
             newOut = outPoint(),
             newOutFound = false;
+        print("fe rvui 15\n");
         for_each (boundary; boundaries)
         {
             if (boundary < inPoint())
@@ -2868,6 +2882,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
             newIn = inPoint(),
             newOut = outPoint(),
             newInFound = false;
+        print("fe rvui 16\n");
         for_each (boundary; boundaries)
         {
             if (boundary > inPoint() && !newInFound)
@@ -2989,6 +3004,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
 {
     \: (void;)
     {
+        print("fe rvui 17\n");
         for_each (mi; metaEvaluate(frame())) 
         {
             if (mi.nodeType == "RVLensWarp" && 
@@ -3380,6 +3396,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
     let node = state.parameterNode,
         name = "";
 
+    print("fe rvui 19\n");
     for_each (s; imagesAtPixel (state.pointerPosition, nil, true))
     {
         if (s.inside) 
@@ -3672,6 +3689,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
 
     try
     {
+        print("fe rvui 20\n");
         for_each (file; files)
         {
             let empty = sources().empty(),
@@ -4050,6 +4068,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
     int[] frames;
     int[] outframes;
 
+    print("fe rvui\n");
     for_each (line; lines)
     {
         string movie;
@@ -4339,6 +4358,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
 
     exportMarked(event);
     clearAllMarks();
+    print("fe rvui 19\n");
     for_each (f; marks) markFrame(f, true);
 }
 
@@ -4444,6 +4464,7 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
         string f   = saveFileDialog(false);
         ofstream o = ofstream(f);
 
+        print("fe rvui\n");
         for_each (a; getCurrentAttributes())
         {
             print(o, "%s %s\n" % a);
@@ -4910,7 +4931,8 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
 
     if (!noAttrs)
     {
-        for_each (a; attrs)
+        print("fe rvui\n");
+for_each (a; attrs)
         {
             case (a._0)
             {
@@ -4922,7 +4944,8 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
             }
         }
     }
-    for_each (src; srcs)
+    print("fe rvui\n");
+for_each (src; srcs)
     {
         if (src eq nil) continue;
         let (name, start, end, inc, fps, a, v) = src;
@@ -5050,7 +5073,8 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
     //
     //  Check to see if some mode want's to handle this URL.
     //
-    for_each (m; state.minorModes) 
+    print("fe rvui\n");
+for_each (m; state.minorModes) 
     {
         if (m.isActive())
         {
@@ -5344,7 +5368,8 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
     }
     else
     {
-        for_each (a; attrs)
+        print("fe rvui\n");
+for_each (a; attrs)
         {
             let (name, val) = a;
 
@@ -5430,7 +5455,8 @@ global let enterFrame = startTextEntryMode(\: (string;) {"Go To Frame: ";}, goto
     if (state.inspector neq nil) state.inspector.layout(event);
     if (state.wipe neq nil) state.wipe.layout(event);
     if (state.sync neq nil) state.sync.layout(event);
-    for_each (m; state.minorModes) if (m.isActive()) m.layout(event);
+    print("fe rvui\n");
+for_each (m; state.minorModes) if (m.isActive()) m.layout(event);
     for_each (w; state.widgets) if (w.isActive()) w.layout(event);
 }
 
@@ -5504,7 +5530,8 @@ global bool debugGC = false;
     {
         if (state.feedback > 0) drawFeedback(event);
         if (state.textEntry && state.textOkWhenEmpty) drawTextEntry(event);
-        for_each (m; state.minorModes) if (m.isActive() && m._drawOnEmpty) m.render(event);
+        print("fe rvui\n");
+for_each (m; state.minorModes) if (m.isActive() && m._drawOnEmpty) m.render(event);
 
         return; // empty session
     }
@@ -5519,7 +5546,8 @@ global bool debugGC = false;
         --preSnapRenderCount;
     }
 
-    for_each (F; state.config.renderImageSpace) F(event);
+    print("fe rvui\n");
+for_each (F; state.config.renderImageSpace) F(event);
     for_each (m; state.minorModes) if (m.isActive()) 
     { 
         if (debugGC) let b0 = runtime.gc.get_free_bytes();
@@ -5531,7 +5559,8 @@ global bool debugGC = false;
             if (d > 0) print ("    %s: allocated %s bytes\n" % (m.name(), d));
         }
     }
-    for_each (w; state.widgets) if (w.isActive()) w.render(event);
+    print("fe rvui\n");
+for_each (w; state.widgets) if (w.isActive()) w.render(event);
     for_each (F; state.config.renderViewSpace) F(event);
 
     //
@@ -5864,7 +5893,8 @@ global bool debugGC = false;
 {
     if (b eq nil) return a;
     Menu accum = a;
-    for_each (m; b) accum = combine(accum, m);
+    print("fe rvui\n");
+for_each (m; b) accum = combine(accum, m);
     accum;
 }
 
@@ -5872,7 +5902,8 @@ global bool debugGC = false;
 {
     if (b eq nil) return a;
     Menu accum = a;
-    for_each (m; b) accum.push_back(m);
+    print("fe rvui\n");
+for_each (m; b) accum.push_back(m);
     accum;
 }
 
@@ -7027,7 +7058,8 @@ global bool debugGC = false;
     use presentation_mode;
     s.minorModes.push_back(PresentationControlMinorMode());
 
-    for_each (m; s.minorModes) m.toggle();
+    print("fe rvui\n");
+for_each (m; s.minorModes) m.toggle();
 
     s.lockResizeScale = false;
     try
@@ -7101,7 +7133,8 @@ global bool debugGC = false;
 {
     State state = data();
 
-    for_each (m; state.minorModes) if (m._modeName == nm) return m;
+    print("fe rvui\n");
+for_each (m; state.minorModes) if (m._modeName == nm) return m;
 
     return nil;
 }

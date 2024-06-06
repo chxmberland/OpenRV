@@ -20,6 +20,7 @@ half[4,4] M = {1, 0, 0, 0,
 
 for (int i=0; i< 100; i++) array.push_back(half(i));
 assert(array[50] == 50.0h);
+print("fe half 1\n");
 for_each (h; array) print(" %g" % h);
 print("\n");
 

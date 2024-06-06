@@ -38,6 +38,8 @@ let testValues = [ (B(1.123), "B 1.123"),
                    (A(1,A(1,A(1,None))), "A x"),
                    (None, "NONE") ];
 
+print("fe Foo 1\n");
+
 for_each (v; testValues)
 {
     let (x, s) = v;

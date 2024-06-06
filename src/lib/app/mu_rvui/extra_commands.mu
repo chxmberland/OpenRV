@@ -25,6 +25,7 @@ module: commands
     {
         let media = getStringProperty(nodeName + ".media.movie");
         [SourceMediaInfo] list = nil;
+        print("fe sourceMediaInfoList 1\n");
         for_each (p; media) list = sourceMediaInfo(nodeName, p) : list;
         return list;
     }
@@ -51,6 +52,7 @@ module: commands
     {
         RenderedImageInfo[] array;
 
+        print("fe sourcesRendered 1\n");
         for_each (i; renderedImages())
         {
             if (sourceMatchRE.match(i.name) && !switchMatchRE.match(i.name)) array.push_back(i);
@@ -75,6 +77,7 @@ module: commands
         osstream str;
         print(str, "%s|%s" % head(filters));
         
+        print("fe openFileDialogue 1\n");
         for_each (filter; tail(filters))
         {
             print(str, "|%s|%s" % filter);
@@ -196,7 +199,7 @@ require system;
             let sourceNameNoFrame = sourceNameWithoutFrame(pi[0].name),
                 sourceNameParts = sourceNameNoFrame.split("/"),
                 sourceName = if (sourceNameParts.size() != 0) then sourceNameParts[0] else "";
-
+            // print("fe recordPixelInfo 1\n");
             for_each (info; pi)
             {
                 if (nodeType(nodeGroup(info.node)) == "RVSourceGroup")
@@ -519,6 +522,7 @@ require system;
 {
     State state = data();
 
+    print("fe minorModeIsLoaded 1\n");
     for_each (m; state.minorModes) if (m._modeName == nm) return true;
 
     return false;
@@ -560,6 +564,7 @@ require system;
         //  Check to see that we have at least one connection to an
         //  RV process
         let startSync = false;
+        print("fe activateSync 1\n");
         for_each (app; remoteApplications()) if (app == "rv") startSync = true;
 
         if (startSync) toggleSync();
@@ -646,6 +651,7 @@ require system;
     cprop(name, StringType);
     let val = getStringProperty(name);
     string[] newVal;
+    print("fe removeFromProp 1\n");
     for_each (x; val) if (x != value) newVal.push_back(x);
     set(name, newVal);
 }
@@ -653,6 +659,7 @@ require system;
 \: existsInProp (bool; string name, string value)
 {
     let val = getStringProperty(name);
+    print("fe existsInProp 1\n");
     for_each (x; val) if (x == value) return true;
     return false;
 }
@@ -689,6 +696,7 @@ leaf) and makes an array of all nodes of type typeName.
         if (typeName == nodeType(nodeName)) array.push_back(nodeName);
         let outnodes = nodeConnections(nodeName, true)._1;
         //print("outnodes = %s\n" % outnodes);
+        print("fe recursiveAssociatedNode 1\n");
         for_each (n; outnodes) recursiveAssociatedNode(typeName, n, array);
     }
 
@@ -736,6 +744,7 @@ If nodeName is nil (default) then all leaf paths will be searched.
     string[] nodes;
     bool rvsource = typeName == "RVSource";
 
+    print("fe nodesInEvalPath 1\n");
     for_each (info; metaEvaluate(frame, viewNode(), nodeName))
     {
         let {name, nodeType, eframe} = info;
@@ -760,6 +769,7 @@ If nodeName is nil (default) then all leaf paths will be searched.
     let domain  = event.domain(),
         p       = state.pointerPosition;
 
+    print("fe nodesUnderPointer 1\n");
     for_each (i; state.pixelInfo)
     {
         let name = i.name.split(".").front();
@@ -789,6 +799,7 @@ Return list of node names in the given group, with type equal to the given type.
 {
     string[] nodes;
 
+    print("fe nodesInGroupOfType 1\n");
     for_each (n; nodesInGroup(groupNode))
     {
         let t = nodeType(n);
@@ -815,6 +826,7 @@ Return list of node names in the given group, with type equal to the given type.
 
 \: isViewNode (bool; string name)
 {
+    print("fe isViewNode 1\n");
     for_each (n; viewNodes()) if (n == name) return true;
     return false;
 }
@@ -833,6 +845,7 @@ Set the user interface name of a node. May modify the name to make it unqiue.
     {
         dupcheck = false;
 
+        print("fe setUIName 1\n");
         for_each (n; viewNodes())
         {
             if (uiName(n) == newName && n != node)
@@ -931,6 +944,7 @@ Locate the input in the eval path at frame starting at node and return its ui na
     osstream buffer;
     int count = 0;
     
+    print("fe inputNodeUserNameAtFrame 1\n");
     for_each (n; nodes) 
     {
         for_each (i; ins) 
@@ -990,6 +1004,7 @@ is not sorted and some frames may appear more than once.
     let seqb = sequenceBoundaries();
     let testFrames = if seqb.empty() then int[](frameStart()) else seqb;
 
+    print("fe findAnnotatedFrames 1\n");
     for_each (f; testFrames)
     {
         for_each (info; metaEvaluate(f, viewNode()))
@@ -1028,6 +1043,7 @@ is not sorted and some frames may appear more than once.
     }
 
     let frames = mapPropertyToGlobalFrames("find.frames", 1);
+    print("fe findAnnotatedFrames 2\n");
     for_each (p; tempProps) if (propertyExists(p)) deleteProperty(p);
     return frames;
 }
@@ -1044,6 +1060,7 @@ is not sorted and some frames may appear more than once.
 {
     string[] nodes;
 
+    print("fe setDisplayProfilesFromSettings 1\n");
     for_each (dnode; nodesOfType("RVDisplayGroup"))
     {
         let nameProp = "%s.device.name" % dnode;
@@ -1088,6 +1105,7 @@ is not sorted and some frames may appear more than once.
     let metaInfo = metaEvaluateClosestByType (frame(), "RVFileSource"),
         sourceNames = string[]();
 
+    print("fe loadCurrentSourcesChangedFrames 1\n");
     for_each (mi; metaInfo) sourceNames.push_back(mi.node);
 
     if (! sourceNames.empty()) loadChangedFrames(sourceNames);
@@ -1114,6 +1132,7 @@ module: commands
         {
             PixelImageInfo info = state.pixelInfo.front();
 
+            print("fe module commands 1\n");
             for_each (ri; renderedImages())
             {
                 if (ri.name == info.name)

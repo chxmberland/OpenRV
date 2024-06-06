@@ -29,6 +29,7 @@ Vec := vector float[3];
            b1 == 4 &&
            b2 == 5);
 
+    print("fe list test 1\n");
     for_each (i; a) print(i);
 
     assert(string(a) == "[1, 2, 3, 4, 5, 6]");

@@ -4036,7 +4036,7 @@ print("points size is " + points.size() + "\n");
 //     f.close();
 // }
 
-
+print("fe ptree 1\n");
 for_each (p; points)
 {
     let indices = ptree.intersect(p, .25);

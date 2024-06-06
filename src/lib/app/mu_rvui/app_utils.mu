@@ -67,6 +67,7 @@ operator: && (MenuStateFunc; MenuStateFunc Fa, MenuStateFunc Fb)
 
 \: bind (void; string mode, string table, BindingList bindings)
 {
+    print("fe bind 1\n");
     for_each (b; bindings) bind(mode, table, b._0, b._1);
 }
 
@@ -79,6 +80,7 @@ operator: && (MenuStateFunc; MenuStateFunc Fa, MenuStateFunc Fb)
 {
     string[] outarray;
     [string] slist = nil;
+    print("fe reverse 1\n");
     for_each (x; inarray) slist = x : slist;
     for_each (x; slist) outarray.push_back(x);
     outarray;

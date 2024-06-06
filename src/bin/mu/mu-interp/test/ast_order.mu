@@ -13,6 +13,7 @@ class: X
 
 class: Y
 {
+    print("fe class Y 1\n");
     method: pr(void;) { for_each (i; ints()) print ("%s\n" % i); }
     method: ints(int[];) { int[] {1,2,3}; }
 }
@@ -102,11 +103,13 @@ assert(foo(1) == 23);
 
 \: F_each (void;)
 {
+    print("fe F_each 1\n");
     for_each (i; listtest());
 }
 
 \: F_index (void;)
 {
+    print("fe F_index 1\n");
     for_each (i; arraytest());
 }
 

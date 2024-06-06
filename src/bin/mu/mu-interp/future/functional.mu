@@ -12,18 +12,21 @@ Predicate := (bool;'a);
 \: map ('a[]; ('a;'b) f, 'b[] array) 
 { 
     'a[] result;
+    print("fe map 1\n");
     for_each (x; array) result.push_back(f(x)); 
     result;
 }
 
 \: map (void; (void;'b) f, 'b[] array) 
 { 
+    print("fe map 2\n");
     for_each (x; array) f(x); 
 }
 
 \: reduce ('a; ('a;'a,'a) op, 'a[] array, 'a seed)
 {
     let acc = seed;
+    print("fe reduce 1\n");
     for_each (x; array) acc = op(acc, x);
     acc;
 }
@@ -31,6 +34,7 @@ Predicate := (bool;'a);
 \: filter ('a[]; Predicate pred, 'a[] array)
 {
     'a[] result;
+    print("fe filter 1\n");
     for_each (x; array) if (pred(x)) result.push_back(x);
     result;
 }
