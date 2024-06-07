@@ -508,6 +508,9 @@ class: Widget : MinorMode
 
     method: updateBounds (void; Vec2 minp, Vec2 maxp)
     {
+
+        print("Entering updateBounds\n");
+
         _x = minp.x;
         _y = minp.y;
         _w = maxp.x - minp.x;
@@ -519,6 +522,8 @@ class: Widget : MinorMode
 
             updateMargins (true);
         }
+
+        print("Bounds updated without segmentation fault\n");
     }
 
     method: contains (bool; Vec2 p)

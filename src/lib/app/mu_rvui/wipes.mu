@@ -720,6 +720,7 @@ class: Wipe : MinorMode
                     let margin  = state.config.bevelMargin * .5,
                         viewMargins = margins();
 
+                    print("nvpb 4");
                     let size = nameValuePairBounds(reverse(pairs), margin)._0;
                     let boxW = size.x + margin,
                         boxH = size.y;
@@ -734,6 +735,7 @@ class: Wipe : MinorMode
                     if (yOver > 0.0) y += max (25.0-yOver, -25.0-boxH);
                     else y += 25.0;
 
+                    print("DNVP 5\n");
                     let (tbox, nbounds, vbounds, nw) = 
                         drawNameValuePairs(reverse(pairs), fg, bg,
                                            x, y,

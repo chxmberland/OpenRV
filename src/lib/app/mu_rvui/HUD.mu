@@ -259,6 +259,7 @@ class: ImageInfo : Widget
         gltext.size(state.config.infoTextSize);
         setupProjection(domain.x, domain.y, event.domainVerticalFlip());
 
+        print("DNVP 1\n");
         let margin  = state.config.bevelMargin,
             x       = _x + margin,
             y       = _y + margin,
@@ -553,10 +554,13 @@ class: ProcessInfo : Widget
             barsize = gltext.bounds("          ")[2] * 8,
             wwidth  = barsize + gltext.bounds(p._name + " 000.00%%")[2] + margin;
 
+        print("DNVP 2\n");
         let (tbox, nbounds, vbounds, nw) = drawNameValuePairs(expandNameValuePairs(pairs),
                                                               fg, bg, x, y, margin, 
                                                               0, 0, 
                                                               wwidth, 0);
+
+        print("Setting a bunch of variables\n");
 
         let md   = margin / 2,
             fa   = int(gltext.ascenderHeight()),
@@ -569,7 +573,12 @@ class: ProcessInfo : Widget
 
         let bwidth = barsize * pcent * .01;
 
+        print("Setting glColor\n");
+        print("bgbar: %s\n" % bgbar);
+
         glColor(bgbar);
+
+        print("Drawing rects\n");
 
         drawRect(GL_QUADS, 
                  Vec2(px, py),
@@ -584,6 +593,8 @@ class: ProcessInfo : Widget
                  Vec2(px + 1 + bwidth, py + 1),
                  Vec2(px + 1 + bwidth, py + th - 1),
                  Vec2(px + 1, py + th - 1));
+
+        print("Done drawing rects\n");
 
         let pcx = px + barsize,
             pcy = py,
@@ -604,7 +615,13 @@ class: ProcessInfo : Widget
                             margin/2, bg, fg);
         }
 
+        print("Updating bounds\n");
+        print("emin %s\n" % emin);
+        print("emax %s\n" % emax);
+
         updateBounds(emin, emax);
+
+        print("Render completed successfully\n");
     }
 }
 
@@ -1197,6 +1214,7 @@ class: SourceDetails : Widget
         gltext.size(state.config.infoTextSize);
         setupProjection(domain.x, domain.y, event.domainVerticalFlip());
 
+        print("DNVP 3\n");
         let margin  = state.config.bevelMargin,
             x       = _x + margin,
             y       = _y + margin,

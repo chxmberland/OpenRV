@@ -344,6 +344,7 @@ module: simpleslate
                                                             h * .9));
             gltext.size(tsize);
             let drawPairs = reverse(pairs);
+            print("nvpb 6");
             let (tbox, _, _, _) = nameValuePairBounds(drawPairs, m);
             
             //
@@ -352,6 +353,8 @@ module: simpleslate
 
             let x = (w - leftmargin - tbox.x - m - 60) / 2 + leftmargin,
                 y = (h - tbox.y) / 2;
+
+            print("DNVP 7\n");
 
             drawNameValuePairs(drawPairs, 
                             Color(.75,.75,.75,1),

@@ -437,6 +437,7 @@ operator: & (Glyph; Glyph a, Glyph b)
     do
     {
         gltext.size(textSize);
+        print("nvpb 1");
         tbox = nameValuePairBounds(pairs, margin)._0;
         if (tbox.x > w || tbox.y > h) 
         {
@@ -451,6 +452,9 @@ operator: & (Glyph; Glyph a, Glyph b)
         count += 1;
     }
     while (tbox.x > w || tbox.y > h || (lastUpperBound - lastLowerBound) > 1);
+
+    print("Exiting fitNameValuePairsInBox");
+    print("%s\n" % textSize);
 
     return textSize - 2;
 }
@@ -675,6 +679,7 @@ operator: & (Glyph; Glyph a, Glyph b)
 {
     m := margin;    // alias
 
+    print("nvpb 2\n");
     let (tbox, nbounds, vbounds, nw) = nameValuePairBounds(pairs, m);
 
     let vw      = 0,
@@ -700,17 +705,25 @@ operator: & (Glyph; Glyph a, Glyph b)
     tbox.x = x1 - x0;   // adjust 
     tbox.y = y1 - y0;
 
+    print("Entering gl section\n");
+
     glPushAttrib(GL_ENABLE_BIT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    print("Exiting gl section\n");
+
     if (!nobox) drawRoundedBox(x0, y0, x1, y1, m, bg, fg * Color(.5,.5,.5,.5));
+
+    print("Box drawn\n");
 
     glColor(fg * Color(1,1,1,.25));
     glBegin(GL_LINES);
     glVertex(x + nw + m/4, y0 + m/2);
     glVertex(x + nw + m/4, y1 - m/2);
     glEnd();
+
+    print("Entering for_index\n");
 
     for_index (i; pairs)
     {
@@ -726,6 +739,8 @@ operator: & (Glyph; Glyph a, Glyph b)
         y += th;
         //if (i == s - 3) y+= m/2;
     }
+
+    print("Exiting drawNameValuePairs\n");
 
     glDisable(GL_BLEND);
     glPopAttrib();

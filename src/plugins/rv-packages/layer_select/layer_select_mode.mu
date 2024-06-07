@@ -297,6 +297,7 @@ class: LayerSelect : Widget
         gltext.size(state.config.infoTextSize);
         setupProjection(domain.x, domain.y, event.domainVerticalFlip());
 
+        print("nvpb 5");
         let margin  = state.config.bevelMargin,
             x       = if (_drawInMargin) then 0 else _x + margin,
             vMargins= margins(),
@@ -320,6 +321,8 @@ class: LayerSelect : Widget
             glVertex(0, vMargins[3]);
             glEnd();
         }
+
+        print("DNVP 6\n");
 
         let y       = _y + margin,
             nvb     = drawNameValuePairs(expandNameValuePairs(attrs), fg, bg, x, y, margin, 

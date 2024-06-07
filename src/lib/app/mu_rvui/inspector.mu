@@ -637,6 +637,7 @@ class: Inspector : Widget
 
         setupProjection(domain.x, domain.y, event.domainVerticalFlip());
 
+        print("nvpb 3");
         let vs     = viewSize(),
             ms     = margins(),
             xmin   = ms[0],
@@ -661,6 +662,7 @@ class: Inspector : Widget
                 p.x, p.y, xmin, xmax, ymin, ymax, flipX, flipY, _widW, widH));
         */
 
+        print("DNVP 4\n");
         let (tbox, nbounds, vbounds, nw)
             = drawNameValuePairs(text, fg, bg, x, y, margin);
 
