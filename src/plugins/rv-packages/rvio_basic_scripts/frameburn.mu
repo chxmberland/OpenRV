@@ -71,6 +71,8 @@ module: frameburn
         glColor(c);
         gltext.color(c);
 
+        print("fe print_frameburn\n");
+
         for_each (keyval; keyvals)
         {
             let (key, value) = keyval;

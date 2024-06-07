@@ -189,6 +189,7 @@ class: AnnotateMinorMode : MinorMode
         let infos = metaEvaluate(frame(), viewNode());
         MetaEvalInfo[] nodes;
 
+        print("fe annotate\n");
         for_each (i; infos)
         {
             if (i.nodeType == "RVPaint") nodes.push_back(i);
@@ -215,6 +216,7 @@ class: AnnotateMinorMode : MinorMode
                 //
                 let sourcePaintCount = 0;
 
+                print("fe annotate\n");
                 for_each (i; infos)
                 {
                     if (nodeType(nodeGroup(i.node)) == "RVSourceGroup")
@@ -258,6 +260,7 @@ class: AnnotateMinorMode : MinorMode
         writeSetting("Annotate", "autoMark", Bool(_autoMark));
         writeSetting("Annotate", "linkToolColors", Bool(_linkToolColors));
 
+        print("fe annotate\n");
         for_each (d; _drawModes)
         {
             writeSetting("Annotate",
@@ -296,6 +299,7 @@ class: AnnotateMinorMode : MinorMode
 
         let String name = readSetting("Annotate", "drawmode", String("Pen"));
 
+        print("fe annotate\n");
         for_each (d; _drawModes)
         {
             let FloatArray a = readSetting("Annotate",
@@ -398,6 +402,7 @@ class: AnnotateMinorMode : MinorMode
 
         beginCompoundStateChange();
 
+        print("fe annotate\n");
         for_each (p; props)
         {
             try
@@ -948,6 +953,7 @@ class: AnnotateMinorMode : MinorMode
 
         if (propertyExists(rprop) && propertyInfo(rprop).size > 0)
         {
+            print("fe annotate\n");
             for_each (c; getStringProperty(rprop)) deleteStroke(_currentNode, c);
             setStringProperty(rprop, string[](), true);
         }
@@ -993,6 +999,7 @@ class: AnnotateMinorMode : MinorMode
 
         beginCompoundStateChange();
 
+        print("fe annotate\n");
         for_each (prop; properties(_currentNode))
         {
             if (regex("\\.debug").match(prop) && propertyInfo(prop).type == IntType)
@@ -1034,6 +1041,7 @@ class: AnnotateMinorMode : MinorMode
             if (_colorTriangle neq nil) _colorTriangle.setColor(qc);
             if (_opacitySlider neq nil) _opacitySlider.setValue(int(c.w * 255.0));
 
+            print("fe annotate\n");
             if (_linkToolColors) for_each (mode; _drawModes) mode.color = c;
 
             _setColorLock = false;
@@ -1244,6 +1252,8 @@ class: AnnotateMinorMode : MinorMode
         _annotationsWidget.clear();
         string lastProp = "";
 
+
+        print("fe annotate\n");
         for_each (prop; properties(_currentNode))
         {
             if (annotationRE.match(prop))
@@ -1326,11 +1336,13 @@ class: AnnotateMinorMode : MinorMode
             //
 
             _syncAutoStart = false;
+            print("fe annotate\n");
             for_each (mode; extraModes) if (mode == _modeName) _syncAutoStart = true;
             string[] newModes;
 
             if (_syncAutoStart)
             {
+                print("fe annotate\n");
                 for_each (mode; extraModes) if (mode != _modeName) newModes.push_back(mode);
                 _syncAutoStart = false;
             }
@@ -1563,6 +1575,7 @@ class: AnnotateMinorMode : MinorMode
 
         if (vnode neq nil)
         {
+            print("fe annotate\n");
             for_each (node; closestNodesOfType("RVPaint"))
             {
                 let p = "%s.tag.annotate" % node;
@@ -1577,6 +1590,7 @@ class: AnnotateMinorMode : MinorMode
 
         if (vnode neq nil)
         {
+            print("fe annotate\n");
             for_each (node; closestNodesOfType("RVPaint"))
             {
                 let p = "%s.tag.annotate" % node;
@@ -1637,6 +1651,7 @@ class: AnnotateMinorMode : MinorMode
         if (frames.empty()) return;
         int newFrame = frames.front();
 
+        print("fe annotate\n");
         for_each (f; frames)
         {
             if (newFrame <= currentFrame || (f > currentFrame && f < newFrame)) newFrame = f;
@@ -1652,7 +1667,8 @@ class: AnnotateMinorMode : MinorMode
 
         if (frames.empty()) return;
         int newFrame = frames.front();
-
+        
+        print("fe annotate\n");
         for_each (f; frames)
         {
             if (f < currentFrame && (newFrame >= currentFrame || f > newFrame)) newFrame = f;
@@ -1951,6 +1967,7 @@ class: AnnotateMinorMode : MinorMode
 
         if (_currentDrawMode eq nil) _currentDrawMode = _penDrawMode;
 
+        print("fe annotate\n");
         for_each (d; _drawModes)
         {
             d.action.setCheckable(true);

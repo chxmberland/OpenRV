@@ -588,9 +588,11 @@ operator: & (Glyph; Glyph a, Glyph b)
         y0      = -margin,
         y1      = margin,
         nbounds = float[4][](),
-        vbounds = float[4][]();
+        vbounds = float[4][](),
+        check = 0;
 
     print("fe glyph 2\n");
+    print("%s\n" % pairs.size());
     for_each (a; pairs)
     {
         let (name, value) = a,
@@ -605,8 +607,19 @@ operator: & (Glyph; Glyph a, Glyph b)
         h += th;
     }
 
+    for_each(p; nbounds) print("%s " % p);
+    print("\n");
+    for_each(p; vbounds) print("%s " % p);
+    print("\n");
+    print("Exited glyph 2\n");
+
     x1 += nw + vw;
     y1 += h;
+
+    print("%s\n" % x0);
+    print("%s\n" % x1);
+    print("%s\n" % y0);
+    print("%s\n" % y1);
 
     (Vec2(x1-x0, y1-y0), nbounds, vbounds, nw);
 }

@@ -35,6 +35,7 @@ class: FolderGroupEditMode : MinorMode
             _ -> { modes = ["LayoutGroup_edit_mode"]; }
         }
 
+        print("fe spohfois\n");
         for_each (mode; modes)
         {
             mm.activateEntry(mm.findModeEntry(mode), on);

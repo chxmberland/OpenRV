@@ -75,6 +75,7 @@ module: asciidoc_to_html {
         use io;
         osstream str;
 
+        print("fe doc_browser\n");
         for_each (word; text.split(" "))
         {
             if (word.size() == 0) continue;
@@ -169,6 +170,7 @@ module: asciidoc_to_html {
                     let pairs = line.substr(1, line.size()-2).split("\",", true);
                     attrs.clear();
                 
+                    print("fe doc_browser\n");
                     for_each (pair; pairs)
                     {
                         let parts = pair.split("=", true),
@@ -224,6 +226,7 @@ module: asciidoc_to_html {
                     string tclass = "basictable";
                     string attrlist = "";
 
+                    print("fe doc_browser\n");
                     for_each (a; attrs)
                     {
                         let (name, value) = a;
@@ -246,6 +249,7 @@ module: asciidoc_to_html {
                 let cells = line.split("|", true);
                 cells.erase(0, 1);
 
+                print("fe doc_browser\n");
                 for_each (cell; cells)
                 {
                     print(str, "<td class=\"basictd\">");
@@ -468,6 +472,7 @@ SymbolPredicate := (bool; symbol);
 
 \: map_over_symbol_tree ([symbol]; symbol s, SymbolPredicate F, [symbol] list)
 {
+    print("fe doc_browser\n");
     for_each (child; symbol_symbols_in_scope(s)) 
         list = map_over_symbol_tree(child, F, list);
     if F(s) then s : list else list;
@@ -575,6 +580,7 @@ function: sort (void; symbol[] array)
 {
     symbol[] outsyms;
 
+    print("fe doc_browser\n");
     for_each (s; syms) 
     {
         let symname = symbol_name(s);
@@ -600,6 +606,7 @@ function: sort (void; symbol[] array)
 \: filter (symbol[]; symbol[] syms)
 {
     symbol[] outsyms;
+    print("fe doc_browser\n");
 
     for_each (s; syms) 
     {
@@ -676,6 +683,7 @@ class: DocModel : QAbstractItemModel
                 node._symbolType != MethodSymbol)
             {
                 let ss = symbol_symbols_in_scope(node._symbol);
+                print("fe doc_browser\n");
 
                 for_each (s; filter(ss))
                 {
@@ -739,6 +747,7 @@ class: DocModel : QAbstractItemModel
         if (root eq nil && s == _root._symbol) return _root;
         let overloads = symbol_overloaded_symbols(s);
 
+        print("fe doc_browser\n");
         for_each (child; childrenOfNode(root)) 
         {
             for_each (o; overloads) if (child._symbol == o) return child;
@@ -759,6 +768,8 @@ class: DocModel : QAbstractItemModel
 
         QModelIndex current = QModelIndex();
         SymbolNode node = _root;
+
+        print("fe doc_browser\n");
 
         for_each (sym; tail(path))
         {
@@ -942,6 +953,8 @@ class: DocBrowser : QWidget
             runtime.parameter_symbol[] parray;
             runtime.type_symbol[] tarray;
 
+            print("fe doc_browser\n");
+
             for_each (p; params) parray.push_back(p);
             for_each (t; ptypes) tarray.push_back(t);
 
@@ -998,6 +1011,8 @@ class: DocBrowser : QWidget
     {
         print(str, "<h2>%s</h2>\n" % title);
         print(str, "<table class=\"%s\">" % cssclass);
+
+        print("fe doc_browser\n");
 
         for_each (f; funcs)
         {
@@ -1065,6 +1080,8 @@ class: DocBrowser : QWidget
                              function_symbol[] funcs)
     {
         [function_symbol] list = nil;
+
+        print("fe doc_browser\n");
         for_each (f; funcs) list = f : list;
         outputFuncTable(str, title, cssclass, hidethis, hidereturn, list);
     }
@@ -1077,6 +1094,8 @@ class: DocBrowser : QWidget
         {
             print(str, "<h2>Types</h2>");
             print(str, "<table class=\"mutypetable\">");
+
+            print("fe doc_browser\n");
             
             for_each (t; types)
             {
@@ -1093,6 +1112,7 @@ class: DocBrowser : QWidget
 
     method: kindNameOfType (string; type_symbol t)
     {
+        print("fe doc_browser\n");
         for_each (T; [(type_is_union, "Union"),
                       (type_is_union_tag, "Union Tag"),
                       (type_is_class, "Class"),
@@ -1138,6 +1158,7 @@ class: DocBrowser : QWidget
             let children = symbol_symbols_in_scope(t);
             type_symbol[] types;
 
+            print("fe doc_browser\n");
             for_each (sym; children)
             {
                 if (symbol_is_type(sym)) 
@@ -1157,6 +1178,8 @@ class: DocBrowser : QWidget
 
                     bool hasdocs = false;
 
+                    print("fe doc_browser\n");
+
                     for_each (l; labels)
                     {
                         let d = symbol_documentation(l);
@@ -1174,6 +1197,8 @@ class: DocBrowser : QWidget
                     {
                         print(str, "<h3>Field Descriptions</h3>");
                         print(str, "<table class=\"muparamtable\">");
+
+                        print("fe doc_browser\n");
 
                         for_each (l; labels)
                         {
@@ -1205,6 +1230,8 @@ class: DocBrowser : QWidget
                 print(str, "{\n");
                 
                 bool first = true;
+
+                print("fe doc_browser\n");
 
                 for_each (c; constructors)
                 {
@@ -1239,6 +1266,8 @@ class: DocBrowser : QWidget
                 function_symbol[] functions;
                 function_symbol[] callableFunctions;
 
+
+                print("fe doc_browser\n");
                 for_each (sym0; symbol_symbols_in_scope(s))
                 {                
                     for_each (sym; symbol_overloaded_symbols(sym0))
@@ -1323,6 +1352,8 @@ class: DocBrowser : QWidget
                        % symbol_fully_qualified_name(s));
         }
 
+        print("fe doc_browser\n");
+
         for_each (sym0; symbol_symbols_in_scope(s))
         {                
             for_each (sym; symbol_overloaded_symbols(sym0))
@@ -1382,6 +1413,8 @@ class: DocBrowser : QWidget
                           (symbol_is_symbolic_constant, symbolInfo),
                           (symbol_is_variable, symbolInfo)],
             typelist    = [(symbol_is_type, typeInfo)];
+
+        print("fe doc_browser\n");
 
         for_each (s; syms)
         {
@@ -1547,6 +1580,8 @@ class: DocBrowser : QWidget
             {
 
                 print(str, "<table class=\"basictable\">");
+
+                print("fe doc_browser\n");
 
                 for_each (s; syms)
                 {

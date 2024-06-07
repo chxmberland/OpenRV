@@ -354,6 +354,7 @@ class: RemoteSync : MinorMode
 
     method: remoteEvalEach (void; string contents)
     {
+        print("fe synchhhh 1\n");
         for_each (c; _contacts)
         {
             deb ("remoteEvalEach '%s'" % contents);
@@ -367,6 +368,7 @@ class: RemoteSync : MinorMode
 
     method: broadcastEvalEach (void; string contents, string originator=nil)
     {
+        print("fe synchhhh 1\n");
         for_each (c; _contacts)
         {
             // Do not send the event to the originator of the event if any was 
@@ -447,6 +449,8 @@ class: RemoteSync : MinorMode
                 //
 
                 let outContents = "%s|%s|%s" % (contents, sessionName(), if (originator neq nil) then originator else "");
+
+                print("fe synchhhh 1\n");
                 
                 for_each (c; _contacts)
                 {
@@ -468,6 +472,8 @@ class: RemoteSync : MinorMode
     
     method: findSyncContact (SyncContact; string name, string session="")
     {
+
+        print("fe synchhhh 1\n");
         for_each (c; _contacts)
         {
             if (c._contact == name && (c._session == session || session == ""))
@@ -481,6 +487,8 @@ class: RemoteSync : MinorMode
 
     method: findVirtualSyncContact (SyncContact; string name, string session="")
     {
+
+        print("fe synchhhh 1\n");
         for_each (c; _virtualContacts)
         {
             if (c._contact == name && (c._session == session || session == ""))
@@ -494,12 +502,15 @@ class: RemoteSync : MinorMode
 
     method: addBlockPattern (void; regex pattern)
     {
+
+        print("fe synchhhh 1\n");
         for_each (r; _blockPropList) if (r eq pattern) return;
         _blockPropList = pattern : _blockPropList;
     }
 
     method: removeBlockPattern (void; regex pattern)
     {
+        print("fe synchhhh 1\n");
         [regex] newList;
         for_each (r; _blockPropList) 
             if (r neq pattern) newList = r : newList;
@@ -508,12 +519,14 @@ class: RemoteSync : MinorMode
 
     method: addSendPattern (void; regex pattern)
     {
+        print("fe synchhhh 1\n");
         for_each (r; _sendPropList) if (r eq pattern) return;
         _sendPropList = pattern : _sendPropList;
     }
 
     method: removeSendPattern (void; regex pattern)
     {
+        print("fe synchhhh 1\n");
         [regex] newList;
         for_each (r; _sendPropList) 
             if (r neq pattern) newList = r : newList;
@@ -522,12 +535,14 @@ class: RemoteSync : MinorMode
 
     method: hasBlockPattern (bool; regex pattern)
     {
+        print("fe synchhhh 1\n");
         for_each (r; _blockPropList) if (r eq pattern) return true;
         return false;
     }
 
     method: hasSendPattern (bool; regex pattern)
     {
+        print("fe synchhhh 1\n");
         for_each (r; _sendPropList) if (r eq pattern) return true;
         return false;
     }
@@ -1179,6 +1194,7 @@ class: RemoteSync : MinorMode
 
         c._sourceMedia = string[][]();
         
+        print("fe synchhhh 2\n");
         for_each (s; sources)
         {
             c._sourceMedia.push_back(string[]());
@@ -1324,6 +1340,8 @@ class: RemoteSync : MinorMode
                 media = getStringProperty("%s.media.movie" % source),
                 newMedia = string[]();
 
+            print("fe synchhhh 2\n");
+
             for_each (m; media)
             {
                 newMedia.push_back (redoPathSwapVars (m));
@@ -1430,6 +1448,8 @@ class: RemoteSync : MinorMode
 
         string out;
 
+        print("fe synchhhh 2\n");
+
         for_each (r; _sendPropList)
         {
             if (r.match(prop) || r.match(altprop))
@@ -1455,6 +1475,8 @@ class: RemoteSync : MinorMode
     method: deletedProperty (void; Event event)
     {
         let prop = event.contents();
+
+        print("fe synchhhh 2\n");
 
         for_each (r; _sendPropList)
         {
@@ -1520,6 +1542,8 @@ class: RemoteSync : MinorMode
             let media = getStringProperty("%s.media.movie" % name),
                 newMedia = string[]();
 
+            print("fe synchhhh 2\n");
+
             for_each (m; media)
             {
                 newMedia.push_back (redoPathSwapVars (m));
@@ -1558,6 +1582,8 @@ class: RemoteSync : MinorMode
     {
         if (pgType == "") return true;
 
+        print("fe synchhhh 2\n");
+
         for_each (g; _sendPipelineGroups)
         {
             if ((g == "General" && pgType == "RVPipelineGroup") ||
@@ -1573,6 +1599,8 @@ class: RemoteSync : MinorMode
     {
         if (pgType == "") return true;
 
+
+        print("fe synchhhh 2\n");
         for_each (g; _blockPipelineGroups)
         {
             if ((g == "General" && pgType == "RVPipelineGroup") ||
@@ -1607,6 +1635,8 @@ class: RemoteSync : MinorMode
         let doSend      = false,
             noStateProp = true,
             maxProp     = false;
+
+        print("fe synchhhh 2\n");
 
         for_each (r; _sendPropList)
         {
@@ -1722,6 +1752,8 @@ class: RemoteSync : MinorMode
 
         string out;
 
+        print("fe synchhhh 2\n");
+
         for_each (r; _sendPropList)
         {
             if (r.match(prop) || r.match(altprop))
@@ -1773,6 +1805,8 @@ class: RemoteSync : MinorMode
         deb ("syncState cont '%s'" % event.contents()); 
         let (contentsArray, c) = parseCompoundEventContents(event);
 
+        print("fe synchhhh 2\n");
+
         for_each (contents; contentsArray)
         {
             let parts         = contents.split("/"),
@@ -1791,6 +1825,8 @@ class: RemoteSync : MinorMode
 
             if (viewNode() != "")
             {
+
+                print("fe synchhhh 2\n");
                 for_each (r; _blockPropList)
                 {
                     if (r.match(propName) || r.match(altPropName)) return;
@@ -1861,6 +1897,7 @@ class: RemoteSync : MinorMode
         if (_showFeedback) displayFeedback("Sending Session Data ... ", 1, syncGlyph);
 
         deb ("************* pushSessionToAll %s" % _contacts);
+        print("fe synchhhh 3\n");
         for_each (c; _contacts)
         {
             deb ("******* pushing session to '%s'" % c._contact);
@@ -1935,6 +1972,8 @@ class: RemoteSync : MinorMode
     method: sendSources (void;)
     {
         let o = io.osstream();
+
+        print("fe synchhhh 3\n");
 
         for_each (n; nodes())
         {
@@ -2050,12 +2089,14 @@ class: RemoteSync : MinorMode
     method: removeSendPipelineGroup (void; string group)
     {
         string[] newList = string[]();
+        print("fe synchhhh 3\n");
         for_each (g; _sendPipelineGroups) if (g != group) newList.push_back(g);
         _sendPipelineGroups = newList;
     }
 
     method: hasSendPipelineGroup (bool; string group)
     {
+        print("fe synchhhh 3\n");
         for_each (g ; _sendPipelineGroups) if (g == group) return true;
 
         return false;
@@ -2085,12 +2126,14 @@ class: RemoteSync : MinorMode
     method: removeBlockPipelineGroup (void; string group)
     {
         string[] newList = string[]();
+        print("fe synchhhh 3\n");
         for_each (g; _blockPipelineGroups) if (g != group) newList.push_back(g);
         _blockPipelineGroups = newList;
     }
 
     method: hasBlockPipelineGroup (bool; string group)
     {
+        print("fe synchhhh 3\n");
         for_each (g ; _blockPipelineGroups) if (g == group) return true;
 
         return false;
@@ -2124,6 +2167,8 @@ class: RemoteSync : MinorMode
         \: flagsForPattern (string[]; [regex] patternList)
         {
             string[] flags;
+
+            print("fe synchhhh 3\n");
 
             for_each (r; patternList)
             {
@@ -2173,6 +2218,8 @@ class: RemoteSync : MinorMode
         //
         //  Send all delayed events
         //
+
+        print("fe synchhhh 3\n");
 
         for_each (ev; _delayedEvents) sendEach(ev.eventName, ev.contents, ev.originator, true /*force*/);
         _delayedEvents.clear();
@@ -2224,6 +2271,7 @@ class: RemoteSync : MinorMode
 
         deb ("name: %s host: %s port %s\n" % (name,host,port)); 
         bool connected = false;
+        print("fe synchhhh 3\n");
         for_each (c; _contacts)
         {
             if (c._contact == name) connected = true;
@@ -2245,6 +2293,7 @@ class: RemoteSync : MinorMode
             port = contentsArray[1];
 
         deb ("name: %s host: %s port %s\n" % (name,host,port)); 
+        print("fe synchhhh 3\n");
         for_each (c; _contacts)
         {
             deb ("comparing c._contact '%s' sender '%s'" % (c._contact, name));
@@ -2492,6 +2541,8 @@ class: RemoteSync : MinorMode
         {
             [regex] list;
 
+            print("fe synchhhh 3\n");
+
             for_each (flag; array)
             {
                 case (flag)
@@ -2588,6 +2639,7 @@ class: RemoteSync : MinorMode
                         c);
 
         let newContacts = SyncContact[] ();
+        print("fe synchhhh 3\n");
         for_each (oldContact; _contacts)
         {
             if (oldContact._contact != contact) newContacts.push_back (oldContact);
@@ -2632,6 +2684,7 @@ class: RemoteSync : MinorMode
 
         let imageInfos = sourcesRendered();
         let renderedSourceNames = string[]{};
+        print("fe synchhhh 3\n");
         for_each (ii; imageInfos)
         {
             let parts = ii.name.split("/");
@@ -2769,6 +2822,8 @@ class: RemoteSync : MinorMode
             let StringArray modeNames = readSetting("Sync",
                                                     "extraModes",
                                                     StringArray(string[]{}));
+
+            print("fe synchhhh 3\n");
 
             for_each (mode; modeNames)
             {

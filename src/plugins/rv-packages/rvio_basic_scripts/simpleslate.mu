@@ -182,6 +182,8 @@ module: simpleslate
         gltext.size(10);
         gltext.color(.5, .5, .5, 1);
 
+        print("fe simpleslate\n");
+
         for_each (gamma; [2.2, 1.8, 1.0])
         {
             let gh = math.pow(.5, 1.0 / gamma);
@@ -268,6 +270,7 @@ module: simpleslate
         StringPair[] pairs;
 
         bool first = true;
+        print("fe simpleslate\n");
         for_each (arg; lines)
         {
             let nv = string.split(arg, "=");

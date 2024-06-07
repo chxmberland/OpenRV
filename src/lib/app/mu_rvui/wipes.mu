@@ -76,6 +76,7 @@ class: Wipe : MinorMode
 
     \: tagValue (string; (string,string)[] tags, string name)
     {
+        print("fe wipes 1\n");
         for_each (t; tags)
         {
             let (n, v) = t;
@@ -93,6 +94,7 @@ class: Wipe : MinorMode
 
         let infos = imagesAtPixel(p, "wipe");
 
+        print("fe wipes 2\n");
         for_each (i; infos)
         {
             let enode = editNode(tagValue(i.tags, "wipe"));
@@ -109,6 +111,7 @@ class: Wipe : MinorMode
 
     method: editNode (EditNodePair; string name)
     {
+        print("fe wipes 3\n");
         for_each (enode; _editNodes)
             if (enode.tformNode == name) return enode;
         return nil;
@@ -137,6 +140,7 @@ class: Wipe : MinorMode
         (PixelSourceInfo,Point)[] centers;
         string tagValue = nil;
 
+        print("fe wipes 4\n");
         for_each (i; infos)
         {
             let enode = editNode(tagValue(i.tags, "wipe")),
@@ -164,6 +168,7 @@ class: Wipe : MinorMode
                     _manipPoint eq nil)
                 {
                     Point gc;
+                    print("fe wipes 5\n");
                     for_each (c; corners) gc += c;
                     gc /= float(corners.size());
 
@@ -365,6 +370,7 @@ class: Wipe : MinorMode
     {
         let nodes = nodesInEvalPath(frame(), "RVTransform2D");
 
+        print("fe wipes 7\n");
         for_each (node; nodes)
         {
 	    let param = "%s.stencil.visibleBox" % node;
@@ -390,6 +396,7 @@ class: Wipe : MinorMode
 
     method: removeTags (void;)
     {
+        print("fe wipes 8\n");
         for_each (x; _editNodes)
         {
             let node = x.tformNode,
@@ -619,6 +626,7 @@ class: Wipe : MinorMode
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
             glBegin(GL_LINE_LOOP);
+            print("fe wipes 9\n");
             for_each (c; _corners) glVertex(c);
             glEnd();
 
@@ -694,6 +702,7 @@ class: Wipe : MinorMode
 
                     let index = 0;
 
+                    print("fe wipes 10\n");
                     for_each (r; renderedImages())
                     {
                         let val = tagValue(r.tags, "wipe_name");

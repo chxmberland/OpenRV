@@ -69,24 +69,28 @@ ChannelSubComponent := 4;
 
 \: includes (bool; QModelIndex[] array, QModelIndex item)
 {
+    print("fe session_manager\n");
     for_each (a; array) if (a.row() == item.row()) return true;
     false;
 }
 
 \: contains (bool; string[] array, string value)
 {
+    print("fe session_manager\n");
     for_each (x; array) if (x == value) return true;
     false;
 }
 
 \: indexOf (int; string[] array, string value)
 {
+    print("fe session_manager\n");
     for_index (i; array) if (array[i] == value) return i;
     -1;
 }
 
 \: remove (string[]; string[] array, string value)
 {
+    print("fe session_manager\n");
     string[] newArray;
     for_each (a; array) if (a != value) newArray.push_back(a);
     newArray;
@@ -94,6 +98,7 @@ ChannelSubComponent := 4;
 
 \: sourceNodeOfGroup (string; string group)
 {
+    print("fe session_manager\n");
     for_each (node; nodesInGroup(group))
     {
         let t = nodeType(node);
@@ -343,16 +348,19 @@ ChannelSubComponent := 4;
 
 \: map (void; [QStandardItem] items, (void; QStandardItem, bool) F, bool value)
 {
+    print("fe session_manager\n");
     for_each (i; items) F(i, value);
 }
 
 \: map (void; [QStandardItem] items, (void; QStandardItem, int) F, int value)
 {
+    print("fe session_manager\n");
     for_each (i; items) F(i, value);
 }
 
 \: addRow (void; QStandardItem item, [QStandardItem] children)
 {
+    print("fe session_manager\n");
     let row = item.rowCount();
     int count = 0;
     for_each (i; children) item.setChild(row, count++, i);
@@ -382,6 +390,7 @@ ChannelSubComponent := 4;
 {
     if (node != "")
     {
+        print("fe session_manager\n");
         let ins = nodeConnections(node)._0;
         string[] newInputs;
         for_each (node; ins) if (node != inputNode) newInputs.push_back(node);
@@ -397,6 +406,7 @@ ChannelSubComponent := 4;
 {
     if (node eq nil || node == "") return true;
     let ins = nodeConnections(node)._0;
+    print("fe session_manager\n");
     for_each (n; ins) if (inputNode == n) return true;
     return false;
 }
@@ -407,6 +417,7 @@ ChannelSubComponent := 4;
     {
         let ins = nodeConnections(node)._0;
         string[] newInputs;
+        print("fe session_manager 1\n");
         for_each (n; ins) newInputs.push_back(n);
         newInputs.push_back(inputNode);
         return setInputs(node, newInputs);
@@ -612,6 +623,7 @@ class: NodeModel : QStandardItemModel
     {
         let m = QStandardItemModel.mimeTypes(this);
         string[] newTypes;
+        print("fe session_manager 1\n");
         for_each (x; m) newTypes.push_back(x);
         newTypes.push_back("text/uri-list");
         newTypes.push_back("text/plain");
@@ -637,6 +649,7 @@ class: NodeModel : QStandardItemModel
 
         try
         {
+            print("fe session_manager 1\n");
             for_each (index; indices)
             {
                 let n     = nodeFromIndex(index, this),
@@ -647,6 +660,8 @@ class: NodeModel : QStandardItemModel
                 {
                     let media = getStringProperty("%s_source.media.movie" % n);
                     print(text, "RVFileSource %s.media.movie = %s\n" % (n, media));
+
+                    print("fe session_manager 1\n");
 
                     for_each (m; media)
                     {
@@ -702,6 +717,7 @@ class: NodeTreeView : QTreeView
         if (nodeType(folder) == "RVFolderGroup") 
         {
             bool exists = false;
+            print("fe session_manager 1\n");
             for_each (i; _sortFolders) if (i == folder) { exists = true; break; }
             if (!exists) _sortFolders.push_back(folder);
         }
@@ -711,6 +727,8 @@ class: NodeTreeView : QTreeView
     {
         let indices = selectionModel().selectedIndexes();
         string[][] paths;
+
+        print("fe session_manager 1\n");
 
         for_each (index; indices)
         {
@@ -736,6 +754,7 @@ class: NodeTreeView : QTreeView
     method: filteredDraggedPaths (string[][]; (bool; string[]) F )
     {
         string[][] filteredPaths;
+        print("fe session_manager 1\n");
         for_each (path; _draggedNodePaths)
             if (F(path)) filteredPaths.push_back(path);
         filteredPaths;
@@ -750,6 +769,8 @@ class: NodeTreeView : QTreeView
         {
             _draggedNodePaths = selectedNodePaths();
             _draggingNonFolders = false;
+
+            print("fe session_manager 1\n");
 
             for_each (path; _draggedNodePaths)
             {
@@ -776,11 +797,13 @@ class: NodeTreeView : QTreeView
             let formats = mimeData.formats();
 
             print("--formats--\n");
+            print("fe session_manager 1\n");
             for_each (f; formats) print("%s\n" % f);
             
             if (mimeData.hasUrls())
             {
                 print("--urls--\n");
+                print("fe session_manager 1\n");
                 for_each (u; event.mimeData().urls()) print("%s\n" % u.toString(QUrl.None));
             }
 
@@ -815,6 +838,8 @@ class: NodeTreeView : QTreeView
         {
             let outs = nodeConnections(node)._1,
                 ntype = nodeType(node);
+
+            print("fe session_manager 2\n");
 
             for_each (path; _draggedNodePaths)
             {
@@ -863,6 +888,8 @@ class: NodeTreeView : QTreeView
 
     method: sortFolders (void;)
     {
+
+        print("fe session_manager 2\n");
         for_each (folder; _sortFolders)
         {
             let item = itemOfNode(_viewModel, folder);
@@ -1080,6 +1107,8 @@ class: SessionManagerMode : MinorMode
     {
         let smodel = _inputsView.selectionModel();
 
+        print("fe session_manager 2\n");
+
         for_each (row; selectionList)
         {
             let index = _inputsModel.index(row, 0, QModelIndex());
@@ -1106,6 +1135,8 @@ class: SessionManagerMode : MinorMode
                 }
             }
         }
+
+        print("fe session_manager 2\n");
 
         for_each (i; _typeIcons) if (i._0 == typeName) return i._1;
         return _unknownTypeIcon;
@@ -1185,6 +1216,8 @@ class: SessionManagerMode : MinorMode
     {
         let items = map(_viewModel, 
                         \: (bool; QStandardItem i) { itemNode(i) == node && !itemIsSubComponent(i); });
+
+        print("fe session_manager 2\n");
 
         for_each (i; items)
         {
@@ -1291,6 +1324,8 @@ class: SessionManagerMode : MinorMode
 
             item.setData(QVariant(if parentExists then parent else ""), Qt.UserRole + 1);
 
+            print("fe session_manager 2\n");
+
             for_each (path; nodePaths)
             {
                 if (path.size() > 1)
@@ -1382,6 +1417,8 @@ class: SessionManagerMode : MinorMode
 
         smodel.clear();
 
+        print("fe session_manager 3\n");
+
         for_each (item; items)
         {
             let index = _viewModel.indexFromItem(item),
@@ -1456,17 +1493,20 @@ class: SessionManagerMode : MinorMode
 
     method: useEditor (void; string name)
     {
+        print("fe session_manager 3\n");
         for_each (e; _editors) if (name == e.text(0)) e.setHidden(false);
     }
 
     method: reloadEditorTab (void;)
     {
+        print("fe session_manager 3\n");
         for_each (e; _editors) e.setHidden(true);
         sendInternalEvent("session-manager-load-ui", viewNode());
     }
 
     method: beforeGraphViewChange (void; Event event)
     {
+        print("fe session_manager 3\n");
         for_each (e; _editors) e.setHidden(true);
         event.reject();
         saveTabState();
@@ -1514,6 +1554,8 @@ class: SessionManagerMode : MinorMode
         {
             let topNode = nodeGroup(node),
                 pval    = getStringProperty(prop);
+
+            print("fe session_manager 3\n");
                 
 
             for_each (item; subComponentItemsOfNode(_viewModel, topNode))
@@ -1568,6 +1610,8 @@ class: SessionManagerMode : MinorMode
 
             let createMenu = _viewContextMenu.addMenu(_createMenu);
             createMenu.setIcon(auxIcon("add_48x48.png", true));
+
+            print("fe session_manager 3\n");
 
             for_each (a; _viewContextMenuActions) _viewContextMenu.addAction(a);
         }
@@ -1693,6 +1737,8 @@ class: SessionManagerMode : MinorMode
 
         if (folder && recursive)
         {
+
+            print("fe session_manager 3\n");
             for_each (n; nodeConnections(node)._0)
             {
                 newNodeRow(item, n, node, recursive);
@@ -1726,6 +1772,8 @@ class: SessionManagerMode : MinorMode
 
                 try
                 {
+
+                    print("fe session_manager 3\n");
                     for_each (info; sourceMediaInfoList(sourceNode))
                     {
                         let fileItem = newNodeSubComponent(MediaSubComponent, item,
@@ -1860,6 +1908,8 @@ class: SessionManagerMode : MinorMode
                 fgMac         = QBrush(QColor(80,80,80,255), Qt.SolidPattern),
                 fgOther       = QBrush(QColor(125,125,125,255), Qt.SolidPattern),
                 foreground    = if _darkUI then fgOther else fgMac;
+
+            print("fe session_manager 3\n");
                 
             for_each (item; categoryItems)
             {
@@ -1882,6 +1932,7 @@ class: SessionManagerMode : MinorMode
                     outs  = nodeConnections(node)._1;
 
                 bool folderParent = false;
+                print("fe session_manager 3\n");
                 for_each (o; outs) if (nodeType(o) == "RVFolderGroup") folderParent = true;
 
                 if (!folderParent) 
@@ -1899,6 +1950,8 @@ class: SessionManagerMode : MinorMode
                     }
                 }
             }
+
+            print("fe session_manager 3\n");
 
             for_each (item; categoryItems)
             {
@@ -2008,6 +2061,8 @@ class: SessionManagerMode : MinorMode
     {
         string folder = nil;
         string cnode = nil;
+
+        print("fe session_manager 3\n");
 
         for_each (n; nodes())
         {
@@ -2150,6 +2205,8 @@ class: SessionManagerMode : MinorMode
         let indices = _viewTreeView.selectionModel().selectedIndexes(),
             nodes   = string[]();
 
+        print("fe session_manager 3\n");
+
         for_each (index; indices) 
         {
             if (index.column() == 0)
@@ -2182,6 +2239,8 @@ class: SessionManagerMode : MinorMode
         let indices = _viewTreeView.selectionModel().selectedIndexes(),
             nodes = string[]();
 
+        print("fe session_manager 3\n");
+
         for_each (index; indices) 
         {
             if (index.column() == 0)
@@ -2198,6 +2257,8 @@ class: SessionManagerMode : MinorMode
     {
         let indices = _viewTreeView.selectionModel().selectedIndexes();
         QStandardItem[] items;
+
+        print("fe session_manager 3\n");
 
         for_each (index; indices) 
         {
@@ -2393,6 +2454,7 @@ class: SessionManagerMode : MinorMode
             folder = newNode("RVFolderGroup", "Folder");
 
         string[] nodes;
+        print("fe session_manager 4\n");
         for_each (path; paths) nodes.push_back(path.front());
 
         if (!paths.empty())
@@ -2415,6 +2477,7 @@ class: SessionManagerMode : MinorMode
 
             if (which == 2) 
             {
+                print("fe session_manager 4\n");
                 for_each (path; paths)
                 {
                     if (path.size() > 1 && nodeExists(path[1])) 
@@ -2446,6 +2509,8 @@ class: SessionManagerMode : MinorMode
     method: deleteViewableSlot (void; bool checked)
     {
         let items = selectedItems();
+
+        print("fe session_manager 4\n");
 
         for_each (item; items) 
         {
@@ -2580,6 +2645,8 @@ class: SessionManagerMode : MinorMode
             
             bool found = false;
             string[] tmp;
+
+            print("fe session_manager 4\n");
             
             for_each (s; sorted) {
                 int order = compare(media, uiName(s));
@@ -2957,6 +3024,8 @@ class: SessionManagerMode : MinorMode
 
         _typeIcons = (string,QIcon)[]();
 
+        print("fe session_manager 4\n");
+
         for_each (t; [
                       ("RVSourceGroup", "videofile_48x48.png"),
                       ("RVImageSource", "videofile_48x48.png"),
@@ -3134,6 +3203,8 @@ class: SessionManagerMode : MinorMode
         {
             ;
         }
+
+        print("fe session_manager 4\n");
 
         for_each (a; menuActions) 
         {

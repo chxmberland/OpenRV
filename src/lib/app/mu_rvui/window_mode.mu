@@ -32,6 +32,7 @@ class: WindowMinorMode : MinorMode
         let images = renderedImages();
         let w = 0.0, h = 0.0, useNext=false;
 
+        print("fe window_mode\n");
         for_each (i; images)
         {
             let g = nodeGroup(i.node);

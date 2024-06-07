@@ -31,6 +31,8 @@ class: StackGroupEditMode : MinorMode
         State state = data();
         mode_manager.ModeManagerMode mm = state.modeManager;
 
+        print("fe sdfsfsdf 4\n");
+
         for_each (mode; ["Composite_edit_mode",
                          "Stack_edit_mode"])
         {

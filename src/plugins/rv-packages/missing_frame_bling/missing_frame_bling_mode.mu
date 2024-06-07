@@ -144,6 +144,7 @@ class: MissingFrameBlingMode : MinorMode
     
     method: setFunc (void; string name, Event event)
     {
+        print("fe missing_frame\n");
         for_each (t; _typeMap) 
         {
             if (t._0 == name) 
@@ -197,6 +198,8 @@ class: MissingFrameBlingMode : MinorMode
                               ("x", renderX), 
                               ("show", renderShow),
                               ("black", renderBlack)  };
+        
+        print("fe missing_frame\n");
 
         for_each (t; _typeMap) if (t._0 == s) _render = t._1;
         if (_render eq nil) _render = renderShow;

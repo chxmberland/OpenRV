@@ -28,6 +28,7 @@ class: ScrubOffset : MinorMode
 
     method: getSource (string; Point pos)
     {
+    print("fe scrub_offset\n");
 	for_each (s; imagesAtPixel (pos, nil, true))
 	{
 	    if (s.inside) 
@@ -48,6 +49,7 @@ class: ScrubOffset : MinorMode
     method: mySourceFrame (int; int f)
     {
 	let infos = metaEvaluate (f, nil);
+        print("fe scrub_offset\n");
         for_each (i; infos) if (i.node == _currentSource) return i.frame;
         return 0;
     }
@@ -75,6 +77,7 @@ class: ScrubOffset : MinorMode
             //
             //  Check for Retime in evaluation path.
             //
+            print("fe scrub_offset\n");
             for_each (rt; extra_commands.nodesInEvalPath (frame(), "RVRetime"))
             {
                 if (getFloatProperty(rt + ".visual.scale").front()  != 1.0 ||

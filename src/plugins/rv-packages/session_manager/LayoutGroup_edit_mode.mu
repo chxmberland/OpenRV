@@ -255,6 +255,7 @@ class: LayoutGroupEditMode : MinorMode
         State state = data();
         mode_manager.ModeManagerMode mm = state.modeManager;
 
+        print("fe seodjfposjd\n");
         for_each (mode; ["Stack_edit_mode", "Composite_edit_mode"])
         {
             let entry = mm.findModeEntry(mode);

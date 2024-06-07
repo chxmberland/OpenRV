@@ -64,6 +64,7 @@ class: TransformManip : MinorMode
     \: computeGC (Vec2; Point[] corners)
     {
         Point gc;
+        print("fe transform_manip\n");
         for_each (c; corners) gc += c;
         gc /= float(corners.size());
         gc;
@@ -71,6 +72,7 @@ class: TransformManip : MinorMode
 
     \: tagValue (string; (string,string)[] tags, string name)
     {
+        print("fe transform_manip\n");
         for_each (t; tags)
         {
             let (n, v) = t;
@@ -82,6 +84,7 @@ class: TransformManip : MinorMode
 
     method: editNode (EditNodePair; string name)
     {
+        print("fe transform_manip\n");
         for_each (enode; _editNodes)
             if (enode.tformNode == name) return enode;
         return nil;
@@ -89,6 +92,7 @@ class: TransformManip : MinorMode
 
     method: activeImageIndex (int;)
     {
+        print("fe transform_manip\n");
         for_each (i; renderedImages())
         {
             let v = tagValue(i.tags, "tmanip_state");
@@ -111,6 +115,9 @@ class: TransformManip : MinorMode
         let corners = imageGeometryByIndex(index),
             p = event.pointer(),
             gc = computeGC(corners);
+
+        print("fe transform_manip\n");
+
 
         for_each (c; corners)
         {
@@ -138,6 +145,8 @@ class: TransformManip : MinorMode
         _currentEditNode = nil;
         _control = NoControl;
         setCursor(Qt.ArrowCursor);
+
+        print("fe transform_manip\n");
 
         for_each (p; imagesAtPixel(event.pointer()))
         {
@@ -274,6 +283,7 @@ class: TransformManip : MinorMode
 
     method: resetAll (void; Event event)
     {
+        print("fe transform_manip\n");
         for_each (enode; _editNodes)
         {
             let tformNode = enode.tformNode,
@@ -303,6 +313,8 @@ class: TransformManip : MinorMode
     {
         let aspect = nodeAspect(viewNode());
 
+        print("fe transform_manip\n");
+
         for_each (enode; _editNodes)
         {
             let tformNode = enode.tformNode,
@@ -323,6 +335,7 @@ class: TransformManip : MinorMode
 
     method: removeTags (void;)
     {
+        print("fe transform_manip\n");
         for_each (x; _editNodes)
         {
             let node = x.tformNode,
@@ -465,6 +478,7 @@ class: TransformManip : MinorMode
 
             glColor(Color(1,1,1,.5));
             glBegin(GL_LINE_LOOP);
+            print("fe transform_manip\n");
             for_each (c; corners) glVertex(c);
             glEnd();
 

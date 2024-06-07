@@ -466,6 +466,7 @@ class: Timeline : Widget
                 if (fps == 0.0)
                 {
                     let attrs = sourceAttributes(name + ".0");
+                    print("fe timeline 1\n");
                     for_each (a; attrs)
                     {
                         if (a._0 == "Timecode") return a._1;
@@ -777,6 +778,7 @@ class: Timeline : Widget
     method: doClearAllMarks (void; Event event)
     {
         let marks = markedFrames();
+        print("fe timeline 2\n");
         for_each (m; marks) markFrame(m, false);
         redraw();
     }
@@ -810,6 +812,7 @@ class: Timeline : Widget
         if (b eq nil) return a;
 
         Menu n;
+        print("fe timeline 3\n");
         for_each (i; a) n.push_back(i);
         for_each (i; b) n.push_back(i);
         n;
@@ -1547,6 +1550,7 @@ class: Timeline : Widget
             glLineWidth(1.0);
             glBegin(GL_LINES);
 
+            print("fe timeline 5\n");
             for_each (mf; mfs)
             {
                 if (mf == f) frameIsMarked = true;
@@ -1562,6 +1566,7 @@ class: Timeline : Widget
             glPointSize(3.2);
             glBegin(GL_POINTS);
 
+            print("fe timeline 6\n");
             for_each (mf; mfs)
             {
                 let xframe = ((mf - fs)/ float(r)) * _tlw + hm0;

@@ -44,6 +44,7 @@ class: ExportCutsMode : MinorMode
             args.push_back(lic);
         }
 
+        print("fe export_cuts\n");
         for_each (a; inargs) args.push_back(a);
         for_index (i; args) argList = args[args.size()-i-1] : argList;
 
@@ -105,6 +106,8 @@ class: ExportCutsMode : MinorMode
 
         _queue.clear();
 
+        print("fe export_cuts\n");
+
         for_each (inout; markedRegionBoundaries())
         {
             let (start, end, i) = inout,
@@ -113,6 +116,8 @@ class: ExportCutsMode : MinorMode
             qlist = item : qlist;
             //print(allfiles, "%s\n" % item.name);
         }
+
+        print("fe export_cuts\n");
 
         for_each (i; qlist) _queue.push_back(i);
 

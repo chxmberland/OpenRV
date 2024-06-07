@@ -73,10 +73,12 @@ class: OpenRVHelpMenuMinorMode : MinorMode
         print("<br><br><hr><center>");
         print("<H1>Current Bindings</H1>");
         print("Modes:");
+        print("fe help_menu\n");
         for_each (m; activeModes()) print(" %s" % m);
 
         print("<table border=0><tr><th>Event</th><th>Binding</th></tr>");
 
+        print("fe help_menu\n");
         for_each (b; bindings()) 
         {
             let (eventName, description) = b;
@@ -92,6 +94,8 @@ class: OpenRVHelpMenuMinorMode : MinorMode
     {
         use autodoc;
         print("<br><br><hr><h1>RV Commands</h1><blockquote>");
+
+        print("fe help_menu\n");
         
         for_each (c; document_symbol("commands").split("\n"))
         {
@@ -112,6 +116,7 @@ class: OpenRVHelpMenuMinorMode : MinorMode
         print ("************ Environment Variables ******************\n");
 
         let envList = qt.QProcessEnvironment.systemEnvironment().toStringList();
+        print("fe help_menu\n");
         for_each (var; envList) print ("  %s\n" % var);
 
         print ("**************** Build Info ************************\n");

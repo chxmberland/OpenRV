@@ -25,6 +25,7 @@ require runtime;
 \: decodeNL (string[]; string[] strs)
 {
     let newStrs = string[]();
+    print("fe nuke_mode\n");
     for_each (s; strs) newStrs.push_back(decodeNL(s));
 
     return newStrs;
@@ -248,6 +249,8 @@ class: RVNukeMode : rvtypes.MinorMode
             outputs = commands.nodeConnections (source, false)._1,
             ok = false;
 
+        print("fe nuke_mode\n");
+
         for_each (o; outputs)
         {
             if (commands.nodeType(o) == "RVFolderGroup")
@@ -281,6 +284,8 @@ class: RVNukeMode : rvtypes.MinorMode
         //  Find the "Read/Write Nodes" folder
         //
         {
+
+            print("fe nuke_mode\n");
             for_each (f; folders)
             {
                 if (getNukeProp (f, "type") == "input")
@@ -305,6 +310,8 @@ class: RVNukeMode : rvtypes.MinorMode
         //
         {
             let node = getNukeProp (source, "node");
+
+            print("fe nuke_mode\n");
 
             for_each (f; folders)
             {
@@ -340,6 +347,8 @@ class: RVNukeMode : rvtypes.MinorMode
 
         let sourceGroups = commands.nodesOfType("RVSourceGroup");
 
+        print("fe nuke_mode\n");
+
         for_each (s; sourceGroups)
         {
             let type = getNukeProp (s, "type");
@@ -353,6 +362,8 @@ class: RVNukeMode : rvtypes.MinorMode
 
         let folders = commands.nodesOfType("RVFolderGroup"),
             otherFolder = "";
+
+        print("fe nuke_mode\n");
 
         for_each (f; folders)
         {
@@ -373,6 +384,8 @@ class: RVNukeMode : rvtypes.MinorMode
         deb ("    otherFolder %s" % otherFolder);
 
         let viewNodes = commands.viewNodes();
+
+        print("fe nuke_mode\n");
         for_each (n; viewNodes)
         {
             deb ("    checking %s" % n);
@@ -381,6 +394,8 @@ class: RVNukeMode : rvtypes.MinorMode
             {
                 let outputs = commands.nodeConnections (n, false)._1,
                     ok = false;
+
+                print("fe nuke_mode\n");
                 for_each (o; outputs)
                 {
                     if (commands.nodeType(o) == "RVFolderGroup")
@@ -460,6 +475,8 @@ class: RVNukeMode : rvtypes.MinorMode
         {
             let sourceGroups = commands.nodesOfType("RVSourceGroup"),
                 oldFrame = commands.frame();
+            
+            print("fe nuke_mode\n");
 
             for_each (s; sourceGroups)
             {
@@ -469,6 +486,8 @@ class: RVNukeMode : rvtypes.MinorMode
                 { 
                     let n = getNukeProp (s, "node"),
                         foundIt = false;
+
+                    print("fe nuke_mode\n");
 
                     for_each (read; readNames) if (read == n) foundIt = true;
 
@@ -635,6 +654,8 @@ class: RVNukeMode : rvtypes.MinorMode
 
         try { children = commands.nodesInGroup(node); } catch(...) {;}
 
+        print("fe nuke_mode\n");
+
         for_each (child; children)
         {
             if (commands.nodeType(child) == type) return child;
@@ -721,6 +742,8 @@ class: RVNukeMode : rvtypes.MinorMode
 
             let newSourceGroups = commands.nodesOfType("RVSourceGroup");
 
+            print("fe nuke_mode\n");
+
             for_each (ns; newSourceGroups)
             {
                 let foundIt = false;
@@ -768,6 +791,8 @@ class: RVNukeMode : rvtypes.MinorMode
         //  in the session or not.  So look for it.
         //
         {
+
+            print("fe nuke_mode\n");
             deb ("    searching existing sources for input");
             for_each (s; sourceGroups)
             {
@@ -855,6 +880,7 @@ class: RVNukeMode : rvtypes.MinorMode
 	    commands.setCacheMode (mode);
 
             let newSourceGroups = commands.nodesOfType("RVSourceGroup");
+            print("fe nuke_mode\n");
             for_each (ns; newSourceGroups)
             {
                 let foundIt = false;
@@ -872,6 +898,7 @@ class: RVNukeMode : rvtypes.MinorMode
 
     method: findRenderByName (RenderInstance; string name)
     {
+        print("fe nuke_mode\n");
         for_each (ri; _renders)
         {
             if (ri.outputNode == name) return ri;
@@ -935,11 +962,13 @@ class: RVNukeMode : rvtypes.MinorMode
              entries = d.entryInfoList(filters, qt.QDir.NoSort);
 
          deb ("%s entries" % entries.size());
+         print("fe nuke_mode\n");
          for_each (e; entries)
          {
              if (e.isDir()) subdirs.push_back(e.canonicalFilePath());
              else qt.QFile.remove(e.canonicalFilePath());
          }
+         print("fe nuke_mode\n");
          for_each (s; subdirs) recursiveDelete(s);
 
          let dirName = d.dirName();
@@ -989,6 +1018,7 @@ class: RVNukeMode : rvtypes.MinorMode
 
         try 
         {
+            print("fe nuke_mode\n");
             for_each (ri; _renders) 
             {
                 if (ri.proc neq nil) ri.proc.cancel();
@@ -1156,6 +1186,8 @@ class: RVNukeMode : rvtypes.MinorMode
 
         let newFilesArrived = (ri.newRenderedFiles.size() > 0);
 
+        print("fe nuke_mode\n");
+
         for_each (f; ri.newRenderedFiles)
         {
             let target = ri.baseDir + "/seq/" + qt.QFileInfo(f).fileName();
@@ -1181,6 +1213,7 @@ class: RVNukeMode : rvtypes.MinorMode
         //
         {
             deb ("    no source set, searching existing sources");
+            print("fe nuke_mode\n");
             for_each (s; sourceGroups)
             {
                 deb ("    checking source '%s'" % s);
@@ -1221,6 +1254,7 @@ class: RVNukeMode : rvtypes.MinorMode
 
             let newSourceGroups = commands.nodesOfType("RVSourceGroup");
             deb ("    after adding we have %s sources" % newSourceGroups.size());
+            print("fe nuke_mode\n");
             for_each (ns; newSourceGroups)
             {
                 let foundIt = false;
@@ -1252,6 +1286,7 @@ class: RVNukeMode : rvtypes.MinorMode
             let noNewFiles = true,
                 allRendersHaveSources = true,
                 noProcsFinished = true;
+            print("fe nuke_mode\n");
             for_each (ri; _renders) 
             {
                 if (ri.newRenderedFiles.size() > 0) noNewFiles = false;
@@ -1272,6 +1307,7 @@ class: RVNukeMode : rvtypes.MinorMode
             //
             //  update any running renders
             //
+            print("fe nuke_mode\n");
             for_each (ri; _renders) updateRenderInstance(ri);
 
             if (    _renders.size() == 1 &&
@@ -1329,6 +1365,7 @@ class: RVNukeMode : rvtypes.MinorMode
 
     method: startWaitingRenders (void; )
     {
+        print("fe nuke_mode\n");
         for_each (ri; _renders)
         {
             if (ri.started == false)
@@ -1437,6 +1474,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
             //
             RenderInstance[] newRenders;
             RenderInstance firstStarted = nil;
+            print("fe nuke_mode\n");
             for_each (ri; _renders)
             {
                 if (! ri.finished) 
@@ -1496,7 +1534,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         deb ("selectCurrentByNodeName %s" % nodeName);
         let sourceGroups = commands.nodesOfType ("RVSourceGroup");
         string selectedSource = nil;
-
+        print("fe nuke_mode\n");
         for_each (s; sourceGroups)
         {
             if (    (getNukeProp (s, "type") == "current" ||
@@ -1512,6 +1550,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         }
         if (selectedSource eq nil)
         {
+            print("fe nuke_mode\n");
             for_each (s; sourceGroups)
             {
                 if (   (getNukeProp (s, "type") == "checkpoint" ||
@@ -1554,6 +1593,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
 
     method: findNukeContact (void; )
     {
+        print("fe nuke_mode\n");
         for_each (c; commands.remoteConnections())
         {
             if (regex("Nuke@").match(c)) _nukeContact = c;
@@ -1610,6 +1650,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
             media = commands.getStringProperty (sourceFile + ".media.movie"),
             oneFrameMedia = string[]();
 
+        print("fe nuke_mode\n");
+
         for_each (m; media)
         {
             let nm = regex.replace (".[0-9]*-[0-9]*@.", m, ".%s." % checkpointFrame);
@@ -1646,6 +1688,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         let newSourceGroups = commands.nodesOfType("RVSourceGroup"),
             newSource = "";
 
+        print("fe nuke_mode\n");
+
         for_each (ns; newSourceGroups)
         {
             let foundIt = false;
@@ -1656,6 +1700,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         deb ("    new source is %s\n" % newSource);
 
         bool rgbSeq = false;
+        print("fe nuke_mode\n");
         for_each (m; media) if (regex.match ("\\.rgb$", m)) rgbSeq = true;
 
         if (rgbSeq)
@@ -1749,6 +1794,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
             deb ("    %s entries: %s\n" % (curSeqPath, entries));
 
             deb ("    copying image files");
+            print("fe nuke_mode\n");
             for_each (e; entries)
             {
                 let from = curSeqPath + "/" + e,
@@ -1768,6 +1814,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         //
         {
             let oneFrameMedia = oneFrameFromSource (source, cpFrame);
+
+            print("fe nuke_mode\n");
 
             for_each (m; oneFrameMedia)
             {
@@ -1797,6 +1845,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
             newMedia = string[]();
 
         deb ("    media %s" % media);
+
+        print("fe nuke_mode\n");
         for_each (m; media) 
         {
             let nm = regex.replace ("/current/" + node, m, "/" + cpPath);
@@ -1867,6 +1917,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         //  Copy support files to home dir
         //
 
+        print("fe nuke_mode\n");
+
         for_each (i;  entries)
         {
             files += "    " + i.fileName() + "\n";
@@ -1897,6 +1949,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
             commands.alertPanel (true, commands.ErrorAlert, msg, "", "OK", nil, nil);
             return;
         }
+
+        print("fe nuke_mode\n");
 
         for_each (i; entries)
         {
@@ -2001,6 +2055,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         if (b eq nil) return a;
 
         rvtypes.Menu n;
+        print("fe nuke_mode\n");
         for_each (i; a) n.push_back(i);
         for_each (i; b) n.push_back(i);
 
@@ -2174,6 +2229,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
             back = "",
             ret = "";
 
+        print("fe nuke_mode\n");
+
         for_each (t; types)
         {
             let re = regex("^(.*[^0-9]+)[0-9]+-[0-9]+%s(.*)$" % t);
@@ -2193,6 +2250,7 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         //
         {
             types = string[] {")%[0-9]*d", "[^#]+)#+", "[^@]+)@+"};
+            print("fe nuke_mode\n");
             for_each (t; types)
             {
                 let re = regex("^(.*%s(.*)$" % t);
@@ -2242,6 +2300,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
 
         let str = "[",
             first = true;
+        
+        print("fe nuke_mode\n");
 
         for_each (n; selectedNodes)
         {
@@ -2294,6 +2354,8 @@ nuke.executeMultiple((writeNode,), ([%s, %s, %s],))
         if (session_manager.theMode() eq nil) return commands.DisabledMenuState;
 
         let nodes = session_manager.theMode().selectedNodes();
+
+        print("fe nuke_mode\n");
 
         for_each (n; nodes)
         {

@@ -48,6 +48,7 @@ class: ResponseValue
 function: reverse ([Value]; [Value] a)
 {
     [Value] n;
+    print("fe xmlprc\n");
     for_each (p; a) n = p : n;
     n;
 }
@@ -55,6 +56,7 @@ function: reverse ([Value]; [Value] a)
 function: reverse ([(string, Value)]; [(string, Value)] a)
 {
     [(string, Value)] n;
+    print("fe xmlprc\n");
     for_each (p; a) n = p : n;
     n;
 }
@@ -77,6 +79,8 @@ function: outputValue (void; ostream o, Value v)
         { 
             print(o, "<struct>");
 
+            print("fe xmlprc\n");
+
             for_each (p; s) 
             {
                 print(o, "<member><name>%s</name>" % p._0);
@@ -90,6 +94,7 @@ function: outputValue (void; ostream o, Value v)
         Array a ->
         {
             print(o, "<array><data>");
+            print("fe xmlprc\n");
             for_each (e; a) outputValue(o, e);
             print(o, "</data></array>");
         }
@@ -109,6 +114,7 @@ function: outputParamList (void; ostream o, [Value] vlist)
 {
     print(o, "<params>");
 
+    print("fe xmlprc\n");
     for_each (v; vlist)
     {
         print(o, "<param>");
@@ -345,6 +351,7 @@ function: call (void;
     \: returnFunc (void; Event event)
     {
         //print("DEBUG: XML-RCP: Returned\n");
+        print("fe xmlprc\n");
         for_each (event; [revent, aevent, eevent]) unbind(event);
         use Value;
 
@@ -372,6 +379,7 @@ function: call (void;
 
     \: errorFunc (void; Event event)
     {
+        print("fe xmlprc\n");
         for_each (event; [revent, aevent, eevent]) unbind(event);
         removeInFlight(hash);
         throw exception("ERROR: XMP-RPC: method \"%s\"" % name);
@@ -379,6 +387,7 @@ function: call (void;
 
     \: authenticateFunc (void; Event event)
     {
+        print("fe xmlprc\n");
         for_each (event; [revent, aevent, eevent]) unbind(event);
         throw exception("ERROR: XMP-RPC: method \"%s\" authentication not implementated" % name);
     }

@@ -124,6 +124,7 @@ class: RetimeGroupEditMode : MinorMode
                 connect(_resetButton, QPushButton.clicked, resetSlot);
                 connect(_reverseButton, QPushButton.clicked, reverseSlot);
 
+                print("fe retime_group_edit\n");
                 for_each (edit; [(_fpsEdit, ".output.fps"),
                                  (_ascaleEdit, ".audio.scale"),
                                  (_vscaleEdit, ".visual.scale"),
@@ -191,6 +192,7 @@ class: RetimeGroupEditMode : MinorMode
 
     method: convertToFPS (void; Event event, float newFPS)
     {
+        print("fe retime_group_edit\n");
         for_each (src; sourcesRendered())
         {
             set("#RVRetime.output.fps", newFPS);

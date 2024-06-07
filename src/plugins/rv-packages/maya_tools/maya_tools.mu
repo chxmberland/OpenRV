@@ -185,6 +185,7 @@ class: MayaTools : MinorMode
         if (b eq nil) return a;
 
         rvtypes.Menu n;
+        print("fe maya_tools\n");
         for_each (i; a) n.push_back(i);
         for_each (i; b) n.push_back(i);
 
@@ -230,6 +231,7 @@ class: MayaTools : MinorMode
 
     method: currentTarget (string; )
     {
+    print("fe maya_tools\n");
 	for_each (s; nodesOfType("RVSourceGroup"))
 	{
 	    if (propertyExists(s + "_source.maya.target")) return s;
@@ -241,6 +243,7 @@ class: MayaTools : MinorMode
     {
         if (nodeType(sourceName) != "RVFileSource") return;
 
+    print("fe maya_tools\n");
 	for_each (s; nodesOfType("RVSourceGroup"))
 	{
 	    if (propertyExists(s + "_source.maya.target")) 
@@ -273,6 +276,8 @@ class: MayaTools : MinorMode
     {
 	let target = currentTarget();
 	if (target eq nil) return;
+
+    print("fe maya_tools\n");
 
 	for_each (v; viewNodes())
 	{
@@ -318,9 +323,11 @@ class: MayaTools : MinorMode
         if (_mayaSource)
 	{
 	    let newSourceGroups = nodesOfType("RVSourceGroup");
+        print("fe maya_tools\n");
 	    for_each (ns; newSourceGroups)
 	    {
 	        let foundIt = false;
+        print("fe maya_tools\n");
 		for_each (s; _origSourceGroups) if (s == ns) { foundIt = true; break; }
 		if (!foundIt) 
 		{

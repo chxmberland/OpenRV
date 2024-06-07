@@ -20,6 +20,8 @@ class: SwitchGroupEditMode : MinorMode
         State state = data();
         mode_manager.ModeManagerMode mm = state.modeManager;
 
+        print("fe sdfgfvcvcvccvcvcvc 4\n");
+
         for_each (mode; ["Switch_edit_mode"])
         {
             mm.activateEntry(mm.findModeEntry(mode), on);
