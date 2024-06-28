@@ -80,7 +80,6 @@ MovieIO::~MovieIO()
 MovieReader*
 MovieIO::movieReader() const
 {
-    //throw UnsupportedException();
     return NULL;
 }
 
@@ -769,18 +768,21 @@ MovieReader*
 tryOpen(const MovieIO* io, const std::string& filename, const MovieInfo& mi,
     Movie::ReadRequest request)
 {
-    //  cerr << "tryOpen '" << filename << "' with '" << io->about() << "'" << endl;
+     cerr << "tryOpen '" << filename << "' with '" << io->about() << "'" << endl;
     
     MovieReader *m = io->movieReader();
     if (m)
     {
         try
         {
+            cout << "DEBUG: Trying to set movieAttributes" << endl;
             io->setMovieAttributesOn(m);
+            cout << "DEBUG: Attributes set" << endl;
             m->open(filename, mi, request);
         }
         catch (std::exception& exc)
         {
+            cout << "DEBUG: Error, entering exc catch block" << endl;
             checkFDLimitOK(filename);
             //  XXX should delete, but need to robustify plugins first
             //delete m;
@@ -793,6 +795,7 @@ tryOpen(const MovieIO* io, const std::string& filename, const MovieInfo& mi,
         }
         catch(...)
         {
+            cout << "DEBUG: Error, entering general catch block" << endl;
             checkFDLimitOK(filename);
             //delete m;
             m = 0;
@@ -805,6 +808,7 @@ tryOpen(const MovieIO* io, const std::string& filename, const MovieInfo& mi,
     }
     else
     {
+        cout << "DEBUG: m is NULL" << endl;
         checkFDLimitOK(filename);
     }
     return m;
@@ -816,6 +820,7 @@ MovieReader*
 GenericIO::openMovieReader(const std::string& filename, const MovieInfo& mi,
     Movie::ReadRequest& request, bool tryBruteForce) 
 {
+    cout << "DEBUG: Entering openMovieReader" << endl;
     unsigned int image = MovieIO::MovieRead;
     unsigned int audio = MovieIO::MovieReadAudio;
     string ext = extension(filename);
@@ -823,19 +828,27 @@ GenericIO::openMovieReader(const std::string& filename, const MovieInfo& mi,
 
     MovieReader* m = 0;
     MovieIOSet ioSet;
+    cout << "DEBUG: Url is " << filename << endl;
+    cout << "DEBUG: tryBruteForce is " << tryBruteForce << endl;
+    cout << "DEBUG: request has " << request.frame << " " << request.stereo << " " << request.missing << endl;
     if (findAllByExtension(ext, image|audio, ioSet) ||
         findAllByExtension(ext, image, ioSet) ||
         findAllByExtension(ext, audio, ioSet))
     {
+        cout << "DEBUG: Path is not URL" << endl;
         for (MovieIOSet::iterator mio = ioSet.begin(); mio != ioSet.end(); ++mio)
         {
             MovieInfo infoCopy = mi;
-            if (m = tryOpen (*mio, filename, infoCopy, request)) return m;
+            cout << "DEBUG: Trying to open " << (*mio)->about() << endl;
+            m = tryOpen (*mio, filename, infoCopy, request);
+            cout << "DEBUG: m is " << m << endl;
+            if (m) return m;
         }
     }
     else if ( TwkUtil::pathIsURL( filename ) && 
-              findAllByExtension( "mov", image|audio, ioSet) )
+              findAllByExtension( "mov", image|audio, ioSet))
     {
+        cout << "DEBUG: Path is URL!" << endl;
         for (MovieIOSet::iterator mio = ioSet.begin(); mio != ioSet.end(); ++mio)
         {
             MovieInfo infoCopy = mi;
@@ -844,6 +857,7 @@ GenericIO::openMovieReader(const std::string& filename, const MovieInfo& mi,
     }
     else if (tryBruteForce)
     {
+        cout << "DEBUG: Brute forcing" << endl;
         const MovieIO* io;
         if ((io = findByBruteForce(filename, image|audio)) ||
             (io = findByBruteForce(filename, image)) ||

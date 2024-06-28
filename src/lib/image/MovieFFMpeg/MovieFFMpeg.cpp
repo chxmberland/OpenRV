@@ -1099,17 +1099,24 @@ MovieFFMpegReader::open(const string &filename,
                         const MovieInfo &info,
                         const Movie::ReadRequest& request)
 {
+    cout << "DEBUG: Entering MovieFFMpegReader::open" << endl;
     m_filename = filename;
     m_info     = info;
     m_request  = request;
 
     if (m_cloning) return;
 
+    cout << "DEBUG: Not cloning" << endl;
+
 #if DB_TIMING & DB_LEVEL
     m_timingDetails->startTimer("initializeAll");
 #endif
 
+    cout << "DEBUG: Calling initializeAll()" << endl;
+
     initializeAll();
+
+    cout << "DEBUG: Done calling initializeAll()" << endl;
 
 #if DB_TIMING & DB_LEVEL
     double initializeAllDuration =
@@ -1142,12 +1149,14 @@ MovieFFMpegReader::openAVFormat()
     AVDictionary* fmtOptions = NULL;
     if (filepathIsURL)
     {
+        cout << "DEBUG: Is URL" << endl;
         for (int i = 0; i < m_request.parameters.size(); i++)
         {
             const string& name  = m_request.parameters[i].first;
             const string& value = m_request.parameters[i].second;
             if (name == "cookies")
             {
+                cout << "DEBUG: " << value.c_str() << endl;
                 av_dict_set(&fmtOptions, "cookies", value.c_str(), 0);
                 av_dict_set_int(&fmtOptions, "seekable", 1, 0);
                 av_dict_set_int(&fmtOptions, "reconnect", 1, 0);
@@ -1155,6 +1164,7 @@ MovieFFMpegReader::openAVFormat()
             }
             else if (name == "headers")
             {
+                cout << "DEBUG: " << value.c_str() << endl;
                 av_dict_set(&fmtOptions, "headers", value.c_str(), 0);
                 av_dict_set_int(&fmtOptions, "seekable", 1, 0);
                 av_dict_set_int(&fmtOptions, "reconnect", 1, 0);
@@ -1164,9 +1174,12 @@ MovieFFMpegReader::openAVFormat()
     }
 
     // Open the file
+    cout << "DEBUG: About to call avformat_open_input" << endl;
     const int ret = avformat_open_input(&m_avFormatContext, safe_path.c_str(), 0, &fmtOptions); 
     if (ret != 0)
         TWK_THROW_EXC_STREAM("Failed to open " << m_filename << " for reading: " << avErr2Str(ret));
+
+    cout << "DEBUG: openAvFormat completed successfully" << endl;
 
     return true;
 }
@@ -1878,7 +1891,10 @@ MovieFFMpegReader::findStreamInfo()
 void
 MovieFFMpegReader::initializeAll()
 {
+    cout << "DEBUG: Inside initializeAll, about to call openAvFormat" << endl;
     openAVFormat();
+    cout << "DEBUG: openAvFormat called and completed" << endl;
+
 
     //
     // For some formats the streams are not partially located at all. In that
@@ -2175,6 +2191,8 @@ MovieFFMpegReader::initializeAll()
         // Add shared timing/name info to the proxy if this is audio only
         finishTrackFBAttrs(&m_info.proxy, "");
     }
+
+    cout << "DEBUG: Made it to the end of initializeAll" << endl;
 }
 
 void
