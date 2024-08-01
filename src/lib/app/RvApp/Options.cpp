@@ -324,6 +324,7 @@ Options::Options()
     acachesize           = 2048;
     nukeSequence         = 0;
     noRanges             = 0;
+    loadMediaOutputPlugins = 1;
 #ifdef PLATFORM_LINUX
     audioNice            = 0;
     audioNoLock          = 1;
@@ -1091,7 +1092,7 @@ Options::output(ostream& out)
           "tgaMaxAsync", "tiffIOMethod", "tiffIOSize", "tiffMaxAsync", "tile", "urlsReuseSession",
           "useCache", "useLCache", "usecli", "vsync", "wipes", "xl", 
           "noBorders", "screen", "x", "y", "width", "height", "startupResize", "displayPriority", "audioPriority", 
-          "stereoSwap",
+          "stereoSwap", "loadMediaOutputPlugins",
           NULL };
 
     static const char* floatfields[] = 
@@ -1214,6 +1215,7 @@ Options::output(ostream& out)
         static_cast<size_t>((char*)(&this->width) - (char*)this),
         static_cast<size_t>((char*)(&this->height) - (char*)this),
         static_cast<size_t>((char*)(&this->startupResize) - (char*)this),
+        static_cast<size_t>((char*)(&this->loadMediaOutputPlugins) - (char*)this),
         static_cast<size_t>((char*)(&this->displayPriority) - (char*)this),
         static_cast<size_t>((char*)(&this->audioPriority) - (char*)this),
         static_cast<size_t>((char*)(&this->stereoSwapEyes) - (char*)this),

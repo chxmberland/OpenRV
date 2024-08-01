@@ -423,6 +423,13 @@
              </property>
             </widget>
            </item>
+           <item row="6" column="0">
+            <widget class="QCheckBox" name="loadMediaOutputPluginsToggle">
+             <property name="text">
+              <string>Load Media Output Plugins</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>

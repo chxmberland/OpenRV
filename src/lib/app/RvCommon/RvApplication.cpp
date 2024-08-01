@@ -716,7 +716,11 @@ RvApplication::newSessionFromFiles(const StringVector& files)
         }
 
         // Load audio/video output plugins
-        loadOutputPlugins("TWK_OUTPUT_PLUGIN_PATH");
+        if (opts.loadMediaOutputPlugins == 1) {
+            loadOutputPlugins("TWK_OUTPUT_PLUGIN_PATH");
+        } else {
+            cout << "WARNING: Skipping loading of video output plugins" << endl;
+        }
     }
 
     doc->session()->graph().setPhysicalDevices(videoModules());

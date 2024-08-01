@@ -466,6 +466,7 @@ RvPreferences::update()
     m_ui.autoRetimeToggle->setCheckState(opts.autoRetime ? Qt::Checked : Qt::Unchecked);
     m_ui.useCrashReporterToggle->setCheckState(Qt::Unchecked);
     m_ui.useCrashReporterToggle->setDisabled(true);
+    m_ui.loadMediaOutputPluginsToggle->setCheckState(opts.loadMediaOutputPlugins ? Qt::Checked : Qt::Unchecked);
 
     m_ui.startupScreenCombo->clear();
     m_ui.startupScreenCombo->addItem("Follow Pointer");
@@ -834,22 +835,23 @@ RvPreferences::loadSettingsIntoOptions(RvSettings& settings, Options& opts)
     opts.fontSize1 = settings.value("fontSize1", opts.fontSize1).toInt();
     opts.fontSize2 = settings.value("fontSize2", opts.fontSize2).toInt();
 
-    opts.playMode         = settings.value("playMode", opts.playMode).toInt();
-    opts.play             = int(settings.value("playOnStartup", opts.play ? true : false).toBool());
-    opts.networkOnStartup = int(settings.value("networkOnStartup", opts.networkOnStartup ? true : false).toBool());
-    opts.stylusAsMouse    = int(settings.value("stylusAsMouse", opts.stylusAsMouse ? true : false).toBool());
-    opts.startupResize    = int(settings.value("startupResize", opts.startupResize ? true : false).toBool());
-    opts.qtdesktop        = int(settings.value("desktopAware", opts.qtdesktop ? true : false).toBool());
-    opts.urlsReuseSession = int(settings.value("urlsReuseSession", opts.urlsReuseSession ? true : false).toBool());
-    opts.fullscreen       = int(settings.value("fullscreenOnStartup", opts.fullscreen ? true : false).toBool());
-    opts.screen           = settings.value("startupScreenPolicy", opts.screen).toInt();
-    opts.nomb             = int(settings.value("noMenuBar", opts.nomb ? true : false).toBool());
-    opts.defaultfps       = settings.value("fps", opts.defaultfps).toDouble();
-    opts.networkHostBuf   = settings.value("networkHost", (opts.networkHost) ? opts.networkHost : "").toString().toUtf8().data();
-    opts.networkHost      = (char *) ((opts.networkHostBuf.empty()) ? 0 : opts.networkHostBuf.c_str());
-    opts.readerThreads    = settings.value("readerThreads", opts.readerThreads).toInt();
-    opts.autoRetime       = int(settings.value("autoRetime", opts.autoRetime ? true : false).toBool());
-    opts.useCrashReporter = int(settings.value("useCrashReporter", opts.useCrashReporter ? true : false).toBool());
+    opts.playMode               = settings.value("playMode", opts.playMode).toInt();
+    opts.play                   = int(settings.value("playOnStartup", opts.play ? true : false).toBool());
+    opts.networkOnStartup       = int(settings.value("networkOnStartup", opts.networkOnStartup ? true : false).toBool());
+    opts.stylusAsMouse          = int(settings.value("stylusAsMouse", opts.stylusAsMouse ? true : false).toBool());
+    opts.startupResize          = int(settings.value("startupResize", opts.startupResize ? true : false).toBool());
+    opts.qtdesktop              = int(settings.value("desktopAware", opts.qtdesktop ? true : false).toBool());
+    opts.urlsReuseSession       = int(settings.value("urlsReuseSession", opts.urlsReuseSession ? true : false).toBool());
+    opts.fullscreen             = int(settings.value("fullscreenOnStartup", opts.fullscreen ? true : false).toBool());
+    opts.screen                 = settings.value("startupScreenPolicy", opts.screen).toInt();
+    opts.nomb                   = int(settings.value("noMenuBar", opts.nomb ? true : false).toBool());
+    opts.defaultfps             = settings.value("fps", opts.defaultfps).toDouble();
+    opts.networkHostBuf         = settings.value("networkHost", (opts.networkHost) ? opts.networkHost : "").toString().toUtf8().data();
+    opts.networkHost            = (char *) ((opts.networkHostBuf.empty()) ? 0 : opts.networkHostBuf.c_str());
+    opts.readerThreads          = settings.value("readerThreads", opts.readerThreads).toInt();
+    opts.autoRetime             = int(settings.value("autoRetime", opts.autoRetime ? true : false).toBool());
+    opts.useCrashReporter       = int(settings.value("useCrashReporter", opts.useCrashReporter ? true : false).toBool());
+    opts.loadMediaOutputPlugins = int(settings.value("loadMediaOutputPlugins", opts.loadMediaOutputPlugins ? true : false).toBool());
 
     opts.stereoMode = 0;
     s = settings.value("stereoMode", opts.stereoMode).toString();
@@ -1134,6 +1136,7 @@ RvPreferences::write()
     settings.setValue("readerThreads", m_ui.rthreadEdit->text().toInt());
     settings.setValue("autoRetime", m_ui.autoRetimeToggle->checkState() == Qt::Checked);
     settings.setValue("useCrashReporter", m_ui.useCrashReporterToggle->checkState() == Qt::Checked);
+    settings.setValue("loadMediaOutputPlugins", m_ui.loadMediaOutputPluginsToggle->checkState() == Qt::Checked);
     settings.setValue("fontSize1", m_ui.fontSizeSpinBox->value());
     settings.setValue("fontSize2", m_ui.fontSize2SpinBox->value());
 
