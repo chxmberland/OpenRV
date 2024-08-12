@@ -196,3 +196,40 @@ make: *** [all] Error 2
 
 Most likely missing a `qt5_add_resources` CMake statement.
 Ref.: https://forum.qt.io/topic/88959/undefined-reference-to-qinitresources/2
+
+### Building with MacOS >= 14.6.*
+
+There are **two** errors that arise when building for the first time with MacOS systems versions 14.6 or later. 
+
+#### Error: Permissions issue during build
+
+First may be during the build process. The first has to do with a permissions change made in the new MacOS version that affects the `MovieFormats` plugin. If you are encountering a permissions error, try run this command.
+
+#### Solution:
+
+```
+sudo chown -R $(whoami) <directory containing OpenRV>/OpenRV/_build/stage/app/RV.app/Contents/PlugIns/MovieFormats/
+````
+
+This command will grant you permissions to this directory and solve any permissions related issues during the build. 
+
+#### Error: Unnable to find zlib
+
+This error occurs after RV has build successfully, when you try to run the application. It should look something like this:
+
+```
+dyld[53016]: Library not loaded: libz.1.dylib
+  Referenced from: <506D7D58-E428-3372-A097-ED6C9B84FA85> /OpenRV/_build/stage/app/RV.app/Contents/lib/libtiff.6.0.2.dylib
+  Reason: tried: 'libz.1.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibz.1.dylib' (no such file), 'libz.1.dylib' (no such file), '/Users/yourUsername/Dev/OpenRV/libz.1.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/yourUsername/OpenRV/libz.1.dylib' (no such file), '/Users/yourUsername/OpenRV/libz.1.dylib' (no such file)
+zsh: abort      rv
+```
+
+#### Solution:
+
+To solve this, you can create a temporary link to an existing `libz.1.dylib` within the build folder. Run the following command.
+
+```
+export DYLD_LIBRARY_PATH=<Your path to OpenRV>OpenRV/_build/RV_DEPS_ZLIB/build:$DYLD_LIBRARY_PATH
+```
+
+This solution works until your terminal is refreshed.
